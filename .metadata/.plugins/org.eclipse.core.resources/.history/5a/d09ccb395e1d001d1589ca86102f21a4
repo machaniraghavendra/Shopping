@@ -1,0 +1,36 @@
+package com.github.yshameer.springjpa.snowflake.service.api;
+
+import com.github.yshameer.springjpa.snowflake.service.repository.StudentRepository;
+import com.github.yshameer.springjpa.snowflake.service.entity.Student;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
+@Controller
+public class StudentApiController implements StudentApi {
+
+    @Autowired
+    StudentRepository studentRepository;
+
+    public ResponseEntity<Student> getStudentById(Long studentId) {
+        return new ResponseEntity<>(studentRepository.findStudentById(studentId), HttpStatus.OK);
+    }
+
+    @PostMapping("/post")
+    public String post(@RequestBody Student stud) {
+    	 studentRepository.save(stud);
+    	 return "Saved";
+    }
+    
+    @GetMapping("/get")
+    public List<Student> get() {
+    return	studentRepository.findAll();
+    }
+}

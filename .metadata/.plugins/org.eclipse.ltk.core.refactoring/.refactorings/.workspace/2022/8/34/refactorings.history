@@ -1,0 +1,3 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">&#x0A;<refactoring comment="Delete resource &apos;Shopping_Life_UserService&apos;" deleteContents="true" description="Delete resource &apos;Shopping_Life_UserService&apos;" element1="/Shopping_Life_UserService" flags="7" id="org.eclipse.ltk.core.refactoring.delete.resources" resources="1" stamp="1660630677702"/>&#x0A;<refactoring comment="Delete resource &apos;spring-jpa-snowflake&apos;" deleteContents="true" description="Delete resource &apos;spring-jpa-snowflake&apos;" element1="/spring-jpa-snowflake" flags="7" id="org.eclipse.ltk.core.refactoring.delete.resources" resources="1" stamp="1660652689719"/>
+</session>

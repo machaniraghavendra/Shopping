@@ -1,0 +1,16 @@
+.card-text a i:hover{
+    animation: jump infinite 1s linear;
+    animation-direction: alternate
+}
+@keyframes jump {
+    0%{
+        transform: translateY(-5px);
+    }
+    100%{
+        transform: translateY(-10px);
+    }
+}
+footer div .card{
+  background: linear-gradient(140deg, blue,white);
+  box-shadow: inset 0px 0px 10px 0px black;
+}
