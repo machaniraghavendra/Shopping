@@ -3,7 +3,9 @@ import React, { useEffect, useState } from 'react'
 import ReactToolTip from "react-tooltip";
 import axios from "axios";
 import img from "../imgbin_shopping-bag-shopping-cart-computer-icons-png.png"
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
+import Login from "../Login/Login";
+
 export default function MainPage() {
 
     const [search, setSearch] = useState("");
@@ -65,9 +67,24 @@ export default function MainPage() {
                             </h1><br></br>
                             <div className="collapse navbar-collapse justify-content-end gap-2" id="navbarTogglerDemo03">
                                 <br></br>
-                                <button className="btn btn-outline-danger  justify-content-end " data-bs-toggle="modal" data-bs-target="#exampleModal3" data-bs-whatever="@fat"
-                                ><i className="fa-solid fa-power-off"></i>
-                                </button>&nbsp;
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-none dropdown-toggle" data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">
+                                    <i className="fa-solid fa-user"></i>
+                                    </button>
+                                    <ul class="dropdown-menu bg-secondary-warning dropdown-menu-lg-end">
+                                    <li><a className="dropdown-item" href="#">Profile</a></li>
+                                        <li><a className="dropdown-item" href="#">Update name</a></li>
+                                        <li><a className="dropdown-item" href="#">Update mobile number</a></li>
+                                        <li><a className="dropdown-item" href="#">Update password</a></li>
+                                        <li>
+                                            <a className="dropdown-item text-center">
+                                                <button className="btn btn-outline-danger  justify-content-end " data-bs-toggle="modal" data-bs-target="#exampleModal3" data-bs-whatever="@fat"
+                                                ><i className="fa-solid fa-power-off"></i> Sign out
+                                                </button>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
                             </div>
                         </div>
                     </nav>
@@ -226,7 +243,7 @@ export default function MainPage() {
                             </div>
                         </div><br></br>
                     </div>
-                    <div className="col-sm-5" data-aos="fade-up-left">
+                    <div className="col-sm-5" data-aos="fade-up-right">
                         <div className="card ">
                             <div className="card-body  p-5" >
                                 <h3 className="card-title">Amazing Products in Trending <i className="bi bi-stars"></i></h3>

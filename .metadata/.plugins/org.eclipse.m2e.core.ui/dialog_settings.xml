@@ -6,6 +6,8 @@
 	</section>
 	<section name="MavenProjectImportWizardPage">
 		<list key="rootDirectory">
+			<item value="D:\Shopping Mart\Shopping"/>
+			<item value="D:\Shopping Mart"/>
 			<item value="D:\E-commerce\spring-jpa-snowflake"/>
 		</list>
 		<list key="projectNameTemplate">
