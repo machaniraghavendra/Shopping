@@ -39,12 +39,12 @@ public class FavController {
 	}
 	
 	@DeleteMapping("/{id}")
-	public ResponseEntity<String> delete(@PathVariable("id") String favId) throws ItemNotFoundInFavException{
+	public ResponseEntity<String> delete(@PathVariable("id") int favId) throws ItemNotFoundInFavException{
 		return new ResponseEntity<String>(favServiceImpl.delete(favId),HttpStatus.OK);
 	}
 	
 	@GetMapping("/{id}")
-	public ResponseEntity<FavouritesEntity> find(@PathVariable("id") String favId) throws ItemNotFoundInFavException{
+	public ResponseEntity<FavouritesEntity> find(@PathVariable("id") int favId) throws ItemNotFoundInFavException{
 		return new ResponseEntity<FavouritesEntity>(favServiceImpl.find(favId),HttpStatus.OK);
 	}
 	
@@ -53,8 +53,8 @@ public class FavController {
 		return new ResponseEntity<List<FavouritesEntity>>(favServiceImpl.viewall(),HttpStatus.OK);
 	}
 	
-	@GetMapping("/total")
-	public String total() {
-		return favServiceImpl.total();
-	}
+//	@GetMapping("/total")
+//	public String total() {
+//		return favServiceImpl.total();
+//	}
 }

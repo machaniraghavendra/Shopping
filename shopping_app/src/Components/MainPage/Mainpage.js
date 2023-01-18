@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { Link } from "react-router-dom";
 import axios from "axios";
 import img from "../imgbin_shopping-bag-shopping-cart-computer-icons-png.png"
+
 export default function MainPage() {
 
     const [search, setSearch] = useState("");
@@ -15,12 +16,17 @@ export default function MainPage() {
 
     const [info, setInfo] = useState("");
 
+
     var count = 0;
 
     const fetch = () => {
         axios.get("http://localhost:8083/items/")
             .then((res) => { return (setData(res.data)) })
     }
+
+    setTimeout(() => {
+        window.onload= document.querySelector(".check .container-fluid h1").innerHTML = "Contents";
+    }, 100);
 
     const check = () => {
         let top = document.querySelector(".check");
@@ -35,9 +41,23 @@ export default function MainPage() {
         }
         else {
             top.classList.remove("fixed-top");
-            title.innerHTML = "";
             scroll.style.display = "none";
+            title.innerHTML = "Contents";
         }
+    }
+
+    const change = () => {
+        let chang = document.getElementById("signimg")
+        chang.innerHTML = "<i class='fa-solid fa-right-to-bracket fa-beat px-3'></i>Sign-up"
+        chang.style.transition = "all 1s"
+        chang.classList.add("signimg")
+    }
+
+    const changess = () => {
+        let chang = document.getElementById("signimg")
+        chang.innerHTML = "<i class='fa-solid fa-lock px-3'></i>Sign-up"
+        chang.style.transition = "all 1s"
+        chang.classList.remove("signimg")
     }
 
     useEffect(() => {
@@ -62,7 +82,7 @@ export default function MainPage() {
                             <div className="collapse navbar-collapse justify-content-end gap-2" id="navbarTogglerDemo03">
                                 <br></br>
                                 <Link to="/login" className="btn">Login</Link>&nbsp;
-                                <Link to="/signup" className="btn" type="submit">Sign-Up</Link>
+                                <Link to="/signup" className="btn" id="signimg" type="submit" onMouseOver={change} onMouseOut={changess}><i className='fa-solid fa-lock  px-3'></i>Sign-up</Link>
                             </div>
                         </div>
                     </nav>
@@ -79,23 +99,22 @@ export default function MainPage() {
                             <div className="collapse navbar-collapse " id="navbarTogglerDemo02">
                                 <ul className="navbar-nav me-auto mb-2 mb-lg-0  ">
                                     <li className="nav-item ">
-                                        <a className="nav-link text-dark" aria-current="page" href="/cart"><h5><i className="fa-solid fa-cart-shopping text-info"></i> Cart</h5></a>
+                                        <a className="nav-link text-dark" aria-current="page" href="/cart"><h5><i className="fa-solid fa-cart-shopping fa-bounce text-info"></i> Cart</h5></a>
                                     </li>
                                     <li className="nav-item">
-                                        <a className="nav-link text-dark" href="/wishlist"><h5><i className="fa-solid fa-heart text-danger"></i> Wishlist</h5></a>
+                                        <a className="nav-link text-dark" href="/wishlist"><h5><i className="fa-solid fa-heart fa-beat text-danger"></i> Wishlist</h5></a>
                                     </li>
                                 </ul>
 
                                 <div className="d-flex justify-content-center gap-3" >
-                                    <div className="search btn" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">
-                                        <i className="fa-solid fa-search"></i>&nbsp;
-                                        Search...&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    <div className="search p-2" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">
+                                        <i className="fa-solid fa-search"></i>
                                     </div>
                                     <div className="btn-group ">
                                         <button type="button" className="btn btn-dark dropdown-toggle " data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">
                                             Items
                                         </button>
-                                        <ul className="dropdown-menu dropdown-menu-lg-end bg-warning">
+                                        <ul className="dropdown-menu dropdown-menu-lg-end bg-warning user">
                                             <li><a className="dropdown-item" type="button" href="#Mobiles"> <i className="fa-solid fa-mobile"></i> Mobiles</a></li>
                                             <li><a className="dropdown-item" type="button" href="#Sports"><i className="fa-solid fa-baseball"></i> Sports</a></li>
                                             <li><a className="dropdown-item" type="button" href="#Dresses"><i className="fa-solid fa-shirt"></i> Dresses</a>
@@ -157,42 +176,51 @@ export default function MainPage() {
                                             <div className="card " data-aos="fade-up" >
                                                 <div className='card-header justify-content-end text-end'>
                                                     <button className='btn  m-2' onClick={() => {
-                                                        axios.post("http://localhost:8081/cart/", {
-                                                            "itemId": e.itemId,
-                                                            "itemName": e.itemName,
-                                                            "itemDesc": e.itemDesc,
-                                                            "itemPrice": e.itemPrice,
-                                                            "itemType": e.itemType,
-                                                            "itemDimensions": e.itemDimensions,
-                                                            "itemImgUrl": e.itemImgUrl,
-                                                            "itemSpec": e.itemSpec
-                                                        }, []).then((res) => { return (setInfo(res.data)) })
+                                                        if (localStorage.getItem("Raghu") && localStorage.getItem("currentuser")) {
+                                                            axios.post("http://localhost:8081/cart/", {
+                                                                "itemId": e.itemId,
+                                                                "itemName": e.itemName,
+                                                                "itemDesc": e.itemDesc,
+                                                                "itemPrice": e.itemPrice,
+                                                                "itemType": e.itemType,
+                                                                "itemDimensions": e.itemDimensions,
+                                                                "itemImgUrl": e.itemImgUrl,
+                                                                "itemSpec": e.itemSpec,
+                                                                "userId":localStorage.getItem("currentuser")
+                                                            }, []).then((res) => { return (setInfo(res.data)) })
+                                                        } else {
+                                                            setInfo("Login required")
+                                                        }
                                                     }}
                                                         data-bs-toggle="modal" data-bs-target="#staticBackdrop" data-bs-whatever="@mdo"
 
                                                     ><i className='fa-solid fa-cart-shopping text-info'></i></button>
                                                     <button className='btn ' onClick={() => {
-                                                        axios.post("http://localhost:8082/fav/", {
-                                                            "itemId": e.itemId,
-                                                            "itemName": e.itemName,
-                                                            "itemDesc": e.itemDesc,
-                                                            "itemPrice": e.itemPrice,
-                                                            "itemType": e.itemType,
-                                                            "itemDimensions": e.itemDimensions,
-                                                            "itemImgUrl": e.itemImgUrl,
-                                                            "itemSpec": e.itemSpec
-                                                        }, []).then((res) => { return (setInfo(res.data)) })
+                                                        if (localStorage.getItem("Raghu") && localStorage.getItem("currentuser")) {
+                                                            axios.post("http://localhost:8082/fav/", {
+                                                                "itemId": e.itemId,
+                                                                "itemName": e.itemName,
+                                                                "itemDesc": e.itemDesc,
+                                                                "itemPrice": e.itemPrice,
+                                                                "itemType": e.itemType,
+                                                                "itemDimensions": e.itemDimensions,
+                                                                "itemImgUrl": e.itemImgUrl,
+                                                                "itemSpec": e.itemSpec,
+                                                                "userId":localStorage.getItem("currentuser")
+                                                            }, []).then((res) => { return (setInfo(res.data)) })
+                                                        } else {
+                                                            setInfo("Login required !")
+                                                        }
                                                     }}
                                                         data-bs-toggle="modal" data-bs-target="#staticBackdrop" data-bs-whatever="@mdo"
                                                     ><i className="fa-solid fa-heart text-danger"></i> </button>
                                                 </div>
                                                 <img src={e.itemImgUrl} className="card-img-top" alt="..." />
                                                 <div className="card-body">
-                                                    <h5 className="card-title" id={e.itemName}>{e.itemName}</h5>
+                                                    <h6 className="card-title" id={e.itemName}>{e.itemName}</h6>
                                                     <p className="card-text">{e.itemPrice}</p>
-                                                    <p className="card-text">{e.itemSpec}</p>
                                                 </div>
-                                                <a href='/mart' className='btn btn-info '>View More...</a>
+                                                <a href={'/view/' + e.itemId + "/" + e.itemName} className='btn btn-info'>View More...</a>
                                             </div>
                                         </div>
                                     )
@@ -213,7 +241,7 @@ export default function MainPage() {
                             <div className="card-body p-3">
                                 <h1 className="card-title ">Great Products With Best Price</h1>
                                 <p className="card-text">The Products of reasonable price and best quality</p>
-                                <a href="/login" className="btn btn-info">View</a>
+                                <a href="#details" className="btn btn-info">View</a>
                             </div>
                         </div><br></br>
                     </div>
@@ -230,7 +258,7 @@ export default function MainPage() {
 
             <hr />
 
-            <div className="container-fluid second p-4  " data-aos="zoom-in-up">
+            <div className="container-fluid second p-4" id="details" data-aos="zoom-in-up">
                 <div className="container text-center">
                     <div className="row row-cols-2 row-cols-lg-6 g-3 g-lg-4 justify-content-center">
                         <div className="col">

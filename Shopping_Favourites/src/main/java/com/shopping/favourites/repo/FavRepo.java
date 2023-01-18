@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.shopping.favourites.entity.FavouritesEntity;
 
 @Repository
-public interface FavRepo extends JpaRepository<FavouritesEntity, String>{
+public interface FavRepo extends JpaRepository<FavouritesEntity, Integer>{
 
 }

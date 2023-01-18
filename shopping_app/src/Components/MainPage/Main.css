@@ -17,19 +17,23 @@
     height: auto;
     z-index: 2;
     transition: .9s;
-    transition-timing-function:5s cubic-bezier(.65,.4,.47,.62);
+    transition-timing-function: 5s cubic-bezier(.65, .4, .47, .62);
     animation: navbar 0.5s 1 linear alternate;
 }
+
 @keyframes navbar {
-    0%{
+    0% {
         transform: translateY(-100%);
         transition: .9s;
-    }100%{
+    }
+
+    100% {
         transform: translateY(0%);
         transition: .9s;
     }
-    
+
 }
+
 .fixed-top .container-fluid h1 {
     color: black;
 }
@@ -70,26 +74,35 @@
     animation: scroll 0.9s 1 linear;
     animation-direction: alternate;
 }
+
 @keyframes scroll {
-    0%{
+    0% {
         opacity: 0;
     }
-    100%{
+
+    100% {
         opacity: 1;
     }
 }
-.search{
-    background-color: rgb(59, 72, 60);
-    border: 2px rgb(15, 14, 14) solid;
-    color: #E7F7F4;
-    transition: .5s;
+
+.search {
+    color: #020202;
+    transition: .3s;
+    cursor: pointer;
 }
-.search:hover{
-    background-color: aqua;
+
+.search:hover {
+    scale: 1.1;
 }
-.logout-model{
+
+.logout-model {
     background: rgb(239, 203, 187);
     box-shadow: inset 0px 0px 15px 0px red;
     color: #0a0a0a;
     letter-spacing: 2px;
+}
+
+.user {
+    background-color: rgb(196, 236, 239);
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
 }

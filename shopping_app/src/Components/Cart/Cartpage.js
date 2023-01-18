@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import "../Cart/Cart.css"
 import Footer from '../Footer/Footer';
 
-export default function Cartpage() {
+export default function Cartpage(props) {
 
     const [search, setSearch] = useState("");
 
@@ -17,16 +17,20 @@ export default function Cartpage() {
 
     const [info, setInfo] = useState("");
 
-    const [totalAmount, setTotalAmount] = useState("");
+    const[userName,setUserName]=useState("");
 
+    let total=0;
+    let totalAmount="";
     var count = 0;
 
     const fetch = () => {
         axios.get("http://localhost:8081/cart/")
             .then((res) => { return (setData(res.data)) })
-
-        axios.get("http://localhost:8081/cart/total").then(res => { return (setTotalAmount(res.data)) })
     }
+
+    setTimeout(() => {
+        window.onload = document.querySelector(".check .container-fluid h1").innerHTML = "Contents";
+    }, 100);
 
     const check = () => {
         let top = document.querySelector(".check");
@@ -51,7 +55,11 @@ export default function Cartpage() {
     }
 
     useEffect(() => {
+        sessionStorage.getItem("dark") ? document.body.style = " background: linear-gradient(140deg, #050505 60%, rgb(22, 14, 132) 0%)"
+            : document.body.style = "background: radial-gradient( #f5ff37, rgb(160, 255, 97))"
         window.onscroll = () => check();
+        document.title = "Cart | Shopping Mart"
+        axios.get("http://localhost:8080/user/"+props.user).then(a=>{return(setUserName(a.data.userName))})
         return (fetch())
     }, [])
 
@@ -64,20 +72,31 @@ export default function Cartpage() {
                     <nav className="navbar bg-none navbar-expand-lg sticky-top">
                         <div className="container-fluid ">
                             <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+                                <i className="fa-thin fa-arrow-left btn m-1" style={{ fontFamily: "fontAwesome" }} onClick={() => { return (window.history.back()) }}></i>
                                 <span className="navbar-toggler-icon"></span>
                             </button>
+                            <i className="fa-thin fa-arrow-left btn m-1 d-none d-lg-block" style={{ fontFamily: "fontAwesome" }} onClick={() => { return (window.history.back()) }}></i>
                             <Link to="/mart" className='nav-link' >  <h1 className="navbar-brand" >
                                 <img src={img} alt="" width="30" height="30" className="d-inline-block align-text-top" />
                                 &nbsp;Shopping Mart
                             </h1></Link><br></br>
                             <div className="collapse navbar-collapse justify-content-end gap-2" id="navbarTogglerDemo03">
                                 <br></br>
-                                <button className="btn btn-outline-danger  justify-content-end " data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Tooltip on bottom"
-                                    onClick={() => {
-                                        return (localStorage.removeItem("Raghu"),
-                                            window.location.reload())
-                                    }}><i className="fa-solid fa-power-off"></i>
-                                </button>&nbsp;
+                                <div className="btn-group">
+                                    <button type="button" className="btn btn-none dropdown-toggle" data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">
+                                        <i className="fa-solid fa-user"></i>&nbsp; {userName}
+                                    </button>
+                                    <ul className="dropdown-menu bg-secondary-warning dropdown-menu-lg-end user">
+                                        <li><Link className="dropdown-item" to={"/profile/settings"}><i className='fa-solid fa-gear'></i> Settings</Link></li>
+                                        <li>
+                                            <a className="dropdown-item text-center">
+                                                <button className="btn btn-outline-danger  justify-content-end " data-bs-toggle="modal" data-bs-target="#exampleModal3" data-bs-whatever="@fat"
+                                                ><i className="fa-solid fa-power-off"></i> Sign out
+                                                </button>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>&nbsp;
                             </div>
                         </div>
                     </nav>
@@ -106,9 +125,8 @@ export default function Cartpage() {
                                     </div>
                                 </ul>
                                 <div className="d-flex justify-content-center" >
-                                    <div className="search btn" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">
-                                        <i className="fa-solid fa-search"></i>&nbsp;
-                                        Search...&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    <div className="search p-2" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">
+                                        <i className="fa-solid fa-search"></i>
                                     </div>
                                 </div>
                             </div>
@@ -116,8 +134,12 @@ export default function Cartpage() {
                     </nav>
                 </div>
             </header >
+
+
             <div className='container-fluid middle'>
-                <div className='cart-aside d-none d-md-none d-lg-block'>
+
+
+                <div className='cart-aside d-lg-block'>
                     <aside className=' '>
                         <div className="offcanvas-lg offcanvas-start alert alert-info" tabIndex="-1" id="offcanvasResponsive" aria-labelledby="offcanvasResponsiveLabel">
                             <div className="alert alert-warning d-none d-lg-block"><i className='fa-solid fa-circle-dot'></i> Browse Contents </div>
@@ -125,8 +147,8 @@ export default function Cartpage() {
                                 <h5 className="offcanvas-title text-dark" id="offcanvasResponsiveLabel">Browse contents</h5>
                                 <button type="button" className="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#offcanvasResponsive" aria-label="Close"></button>
                             </div>
-                            <div className="offcanvas-body bg-dark ">
-                                <ul className="navbar-nav me-auto mb mb-lg-0  listss">
+                            <div className="offcanvas-body bg-warning ">
+                                <ul className="navbar-nav me-auto mb mb-lg-0 listss">
                                     <li className="nav-item">
                                         <Link className="nav-link " to="/wishlist"><i className="fa-solid fa-heart text-danger"></i> Wishlist</Link>
                                     </li>
@@ -135,17 +157,19 @@ export default function Cartpage() {
                         </div>
                     </aside>
                 </div>
+
+
                 <div className='cart-body float-md-left float-lg-right'>
-                    {data.length == [] ?
+                    {data.filter(e=>e.userId==localStorage.getItem("currentuser")).length == [] ?
                         <div className='container-fluid cart-no'><br></br>
-                                                        <h1>No Items Found in Cart !</h1>
+                            <h1>No Items Found in Cart !</h1>
 
                             <img className='img-fluid cart-no-img' src='https://img.freepik.com/free-photo/portrait-sad-woman-holding-shopping-bags-bank-card-isolated-blue-background_1258-80590.jpg?w=900&t=st=1661337619~exp=1661338219~hmac=2216603151e8e22d07a13935e4d02c5b9629f1482b776df503c439b83528628f' width="70%" />
                         </div>
                         :
                         <div className='container-fluid '>
                             <div className="  row row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-3 gap-4 justify-content-center text-center ">
-                                {data.map(e => {
+                                {data.filter(e=>e.userId==localStorage.getItem("currentuser")).map(e=>{
                                     return (
                                         <div className=' col row ' key={e.itemId}>&nbsp;
                                             <div className="card" data-aos="fade-up" >
@@ -157,16 +181,21 @@ export default function Cartpage() {
                                                         data-bs-toggle="modal" data-bs-target="#exampleModal2" data-bs-whatever="@mdo"
                                                     ><i className='fa-solid fa-trash text-danger'></i></button>
                                                     <button className='btn ' onClick={() => {
-                                                        axios.post("http://localhost:8082/fav/", {
-                                                            "itemId": e.itemId,
-                                                            "itemName": e.itemName,
-                                                            "itemDesc": e.itemDesc,
-                                                            "itemPrice": e.itemPrice,
-                                                            "itemType": e.itemType,
-                                                            "itemDimensions": e.itemDimensions,
-                                                            "itemImgUrl": e.itemImgUrl,
-                                                            "itemSpec": e.itemSpec
-                                                        }, []).then((res) => { return (setInfo(res.data)) })
+                                                        if (localStorage.getItem("Raghu") && localStorage.getItem("currentuser")) {
+                                                            axios.post("http://localhost:8082/fav/", {
+                                                                "itemId": e.itemId,
+                                                                "itemName": e.itemName,
+                                                                "itemDesc": e.itemDesc,
+                                                                "itemPrice": e.itemPrice,
+                                                                "itemType": e.itemType,
+                                                                "itemDimensions": e.itemDimensions,
+                                                                "itemImgUrl": e.itemImgUrl,
+                                                                "itemSpec": e.itemSpec,
+                                                                "userId":localStorage.getItem("currentuser")
+                                                            }, []).then((res) => { return (setInfo(res.data)) })
+                                                        } else {
+                                                            setInfo("Login required !")
+                                                        }
                                                     }}
                                                         data-bs-toggle="modal" data-bs-target="#exampleModal2" data-bs-whatever="@mdo"
                                                     ><i className="fa-solid fa-heart text-danger"></i> </button>
@@ -176,20 +205,25 @@ export default function Cartpage() {
                                                 <div className="card-body">
                                                     <h5 className="card-title" id={e.itemName}>{e.itemName}</h5>
                                                     <p className="card-text">{e.itemPrice}</p>
-                                                    <p className="card-text">{e.itemSpec}</p>
                                                 </div>
-                                                <a href='#' className='btn btn-info '>View More...</a>
+                                                <Link to={'/view/' + e.itemId + "/" + e.itemName} className='btn btn-info'>View More...</Link>
                                             </div>
                                         </div>
                                     )
                                 })
+                                
                                 }
+                                    
+                                
+                                
                             </div><br></br>
                             &nbsp;
                             <div className='card' style={{ height: "10%" }}>
                                 <div className='card-footer'>
                                     <h5>List of products in cart :</h5>
-                                    {data.map(e => {
+                                    {data.filter(e=>e.userId==localStorage.getItem("currentuser")).map(e => {
+                                        total+=parseInt(e.itemPrice.substr(1).replaceAll(",",""));
+                                        totalAmount=Intl.NumberFormat('hi-IN',{style:"currency",currency:"INR"}).format(total)
                                         return (
                                             <div key={e.itemId}>
                                                 <li >
@@ -268,7 +302,7 @@ export default function Cartpage() {
                                         <>
                                             {find == true ?
                                                 <>
-                                                    <p className="container-fluid"><b>Search results :</b>Found {findvalue} </p>
+                                                    <p className="container-fluid py-2"><b>Search results :</b>Found <b>{findvalue} </b></p>
                                                 </> : ""}
                                         </>}
                                 </div>
@@ -282,7 +316,7 @@ export default function Cartpage() {
                                     if (val.itemName.toLowerCase().includes(search.toLowerCase())) {
                                         return val
                                     }
-                                }).map((e) => {
+                                }).filter(val=>val.userId==localStorage.getItem("currentuser")).map((e) => {
                                     count++;
                                     return (
                                         <div className=' col row ' key={e.itemId}>&nbsp;
@@ -293,27 +327,31 @@ export default function Cartpage() {
                                                     }}><i className='fa-solid fa-trash text-danger'></i>
                                                     </button>
                                                     <button className='btn ' onClick={() => {
-                                                        axios.post("http://localhost:8082/fav/", {
-                                                            "itemId": e.itemId,
-                                                            "itemName": e.itemName,
-                                                            "itemDesc": e.itemDesc,
-                                                            "itemPrice": e.itemPrice,
-                                                            "itemType": e.itemType,
-                                                            "itemDimensions": e.itemDimensions,
-                                                            "itemImgUrl": e.itemImgUrl,
-                                                            "itemSpec": e.itemSpec
-                                                        }, []).then((res) => { return (setInfo(res.data)) })
+                                                        if (localStorage.getItem("Raghu") && localStorage.getItem("currentuser")) {
+                                                            axios.post("http://localhost:8082/fav/", {
+                                                                "itemId": e.itemId,
+                                                                "itemName": e.itemName,
+                                                                "itemDesc": e.itemDesc,
+                                                                "itemPrice": e.itemPrice,
+                                                                "itemType": e.itemType,
+                                                                "itemDimensions": e.itemDimensions,
+                                                                "itemImgUrl": e.itemImgUrl,
+                                                                "itemSpec": e.itemSpec,
+                                                                "userId":localStorage.getItem("currentuser")
+                                                            }, []).then((res) => { return (setInfo(res.data)) })
+                                                        } else {
+                                                            setInfo("Login required !")
+                                                        }
                                                     }}
-                                                        data-bs-toggle="modal" data-bs-target="#staticBackdrop" data-bs-whatever="@mdo"
+                                                        data-bs-toggle="modal" data-bs-target="#exampleModal2" data-bs-whatever="@mdo"
                                                     ><i className="fa-solid fa-heart text-danger"></i> </button>
                                                 </div>
                                                 <img src={e.itemImgUrl} className="card-img-top" alt="..." />
                                                 <div className="card-body">
-                                                    <h5 className="card-title" id={e.itemName}>{e.itemName}</h5>
+                                                    <h6 className="card-title" id={e.itemName}>{e.itemName}</h6>
                                                     <p className="card-text">{e.itemPrice}</p>
-                                                    <p className="card-text">{e.itemSpec}</p>
                                                 </div>
-                                                <a href='#' className='btn btn-info '>View More...</a>
+                                                <a href={'/view/' + e.itemId + "/" + e.itemName} className='btn btn-info'>View More...</a>
                                             </div>
                                         </div>
                                     )
@@ -327,6 +365,31 @@ export default function Cartpage() {
                     </div>
                 </div>
             </div >
+
+            {/* Logout popup */}
+            <div className="modal fade " id="exampleModal3" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div className="modal-dialog">
+                    <div className="modal-content logout-model">
+                        <div className="modal-header">
+                            <h5 className="modal-title " id="exampleModalLabel"><img src={img} alt="" width="30" height="30" className="d-inline-block align-text-top" /> Shopping mart</h5>
+                            <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div className="modal-body text-center">
+                            <h5>Conform to logout</h5>
+                        </div>
+                        <div className="modal-footer">
+                            <button type="button" className="btn btn-outline-success" data-bs-dismiss="modal">No</button>
+                            <button type="button" className="btn btn-outline-danger"
+                                onClick={() => {
+                                    return (localStorage.removeItem("currentuser"),
+                                        localStorage.removeItem("Raghu"),
+                                        window.location.reload())
+                                }}
+                            >Yes</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     )
 }

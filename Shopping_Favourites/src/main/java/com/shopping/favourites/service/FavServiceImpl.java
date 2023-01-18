@@ -1,8 +1,8 @@
 package com.shopping.favourites.service;
 
-import java.text.NumberFormat;
+
+
 import java.util.List;
-import java.util.Locale;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,14 +17,21 @@ public class FavServiceImpl implements FavService{
 
 	@Autowired
 	FavRepo favRepo;
-	
+	private int i=1;
 	@Override
 	public String save(FavouritesEntity favouritesEntity) throws ItemAlreadyInFavException {
 		try {
-			if(favRepo.existsById(favouritesEntity.getItemId()))
+		    
+		    List<FavouritesEntity> favList=favRepo.findAll().stream().
+		            filter(a->a.getUserId().equalsIgnoreCase(favouritesEntity.getUserId()))
+		            .filter(a->a.getItemName().equalsIgnoreCase(favouritesEntity.getItemName()))
+		            .toList();
+		    
+			if(!favList.isEmpty())
 				throw new ItemAlreadyInFavException("The item "+favouritesEntity.getItemName()+" already in your favourites");
 			else {
-				favRepo.save(favouritesEntity);
+			    FavouritesEntity favEntity=new FavouritesEntity(favouritesEntity.getItemId(),i++, favouritesEntity.getItemType(), favouritesEntity.getItemName(), favouritesEntity.getItemImgUrl(), favouritesEntity.getItemPrice(), favouritesEntity.getItemDesc(), favouritesEntity.getItemSpec(),favouritesEntity.getItemDimensions(),favouritesEntity.getUserId());
+				favRepo.save(favEntity);
 				return "Added to your Wishlist";
 			}
 		} catch (ItemAlreadyInFavException e) {
@@ -49,7 +56,7 @@ public class FavServiceImpl implements FavService{
 	}
 
 	@Override
-	public String delete(String favId) throws ItemNotFoundInFavException {
+	public String delete(int favId) throws ItemNotFoundInFavException {
 		FavouritesEntity favEntity=new FavouritesEntity();
 		favEntity=favRepo.findById(favId).get();
 		try {
@@ -66,7 +73,7 @@ public class FavServiceImpl implements FavService{
 	}
 
 	@Override
-	public FavouritesEntity find(String favId) throws ItemNotFoundInFavException {
+	public FavouritesEntity find(int favId) throws ItemNotFoundInFavException {
 		try {
 			if(!favRepo.existsById(favId))
 				throw new ItemNotFoundInFavException("The item "+favId+" not exists in your Favourites");
@@ -84,14 +91,14 @@ public class FavServiceImpl implements FavService{
 		return favRepo.findAll(); 
 	}
 	
-	public String total() {
-		int amount=0;
-		List<FavouritesEntity> list=favRepo.findAll();
-		for (FavouritesEntity favEntity : list) {
-			amount +=Integer.parseInt(favEntity.getItemPrice().substring(1,favEntity.getItemPrice().length()-3).replaceAll(",", "").trim());
-		}
-		NumberFormat format=NumberFormat.getCurrencyInstance(Locale.forLanguageTag("hi-IN"));
-		
-		return format.format(amount);
-	}
+//	public String total() {
+//		int amount=0;
+//		List<FavouritesEntity> list=favRepo.findAll();
+//		for (FavouritesEntity favEntity : list) {
+//			amount +=Integer.parseInt(favEntity.getItemPrice().substring(1,favEntity.getItemPrice().length()-3).replaceAll(",", "").trim());
+//		}
+//		NumberFormat format=NumberFormat.getCurrencyInstance(Locale.forLanguageTag("hi-IN"));
+//		
+//		return format.format(amount);
+//	}
 }

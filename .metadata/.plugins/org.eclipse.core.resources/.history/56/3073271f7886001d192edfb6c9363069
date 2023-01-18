@@ -1,0 +1,5 @@
+package com.shop.life.entity;
+
+public class CartEntity {
+
+}

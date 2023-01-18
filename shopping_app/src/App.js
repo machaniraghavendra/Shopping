@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Link, Route, Routes } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import './App.css';
 import Footer from './Components/Footer/Footer';
 import Login from "./Components/Login/Login";
@@ -13,29 +13,48 @@ import ErrorPage from "./Components/Error/ErrorPage";
 import Cartpage from "./Components/Cart/Cartpage";
 import Wishlist from "./Components/WishList/Wishlist";
 import ForgotPass from "./Components/Login/ForgotPass";
+import MobileLog from "./Components/Mobiles/MobileLog";
+import View from "./Components/View/View";
+import { useState } from "react";
+import axios from "axios";
+import Settings from "./Components/Settings/Settings";
 
 function App() {
-  if (localStorage.getItem("Raghu")) {
+  let user = localStorage.getItem("currentuser")
+
+  const [what, setWhat] = useState(false);
+
+  const currentuser = () => {
+    axios.get("http://localhost:8080/user/id/" + user).then(res => {
+      return (setWhat(true))
+    }).catch(() => { setWhat(false) })
+  }
+
+  currentuser();
+
+  if (localStorage.getItem("Raghu") && localStorage.getItem("currentuser") && what) {
     return (
       <div className="App">
         <Router>
           <Routes>
-            <Route path="/login" element={<Login />} />
+            <Route path="/login" element={<Login user={user} />} />
             <Route path="/signup" element={<SignUp />} />
-            <Route path="/cart" element={<Cartpage/>}/>
-            <Route path="/wishlist" element={<Wishlist/>}/>
-            <Route path="/login/forgot/password" element={<ForgotPass/>}/>
+            <Route path="/cart" element={<Cartpage user={user} />} />
+            <Route path="/wishlist" element={<Wishlist user={user} />} />
+            <Route path="/login/forgot/password" element={<ForgotPass  user={user}  />} />
+            <Route path="/view/*" element={<View user={user} />} />
+            <Route path="/profile/settings" element={<Settings user={user} />} />
             <Route path="/mart" element={
               <>
-                <MainpageAlog />
+                <MainpageAlog user={user} />
                 <Trending />
-                <Mobiles />
+                <MobileLog />
                 <Sports />
                 <Shirts />
                 <Footer />
               </>
             } />
-            <Route path="/" element={
+            {/* <Route path="/" element={
               <>
                 <MainPage />
                 <Trending />
@@ -44,7 +63,7 @@ function App() {
                 <Shirts />
                 <Footer />
               </>
-            } />
+            } /> */}
             <Route path="/*" element={<ErrorPage />} />
           </Routes>
         </Router>
@@ -57,7 +76,8 @@ function App() {
         <Routes>
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<SignUp />} />
-          <Route path="/login/forgot/password" element={<ForgotPass/>}/>
+          <Route path="/login/forgot/password" element={<ForgotPass  user={user} />} />
+          <Route path="/mart" element={<MainpageAlog user={user}/>} />
           <Route path="/" element={
             <>
               <MainPage />

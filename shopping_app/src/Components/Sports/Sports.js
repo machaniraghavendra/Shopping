@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import axios from "axios";
 import "../Sports/Sport.css"
+import { Link } from 'react-router-dom';
 
 export default function Sports() {
 
@@ -18,14 +19,14 @@ export default function Sports() {
 
   return (
     <div className='container-fluid'>
-      <h2 id='Sports'>Sports  <i className="fa-thin fa-baseball" style={{ fontFamily: "fontAwesome" }}></i></h2>
+      <h2 id='Sports' className=' dark text-light '>Sports  <i className="fa-thin fa-baseball" style={{ fontFamily: "fontAwesome" }}></i></h2>
       {sports.length == [] || !sports.map(e => { e.itemType.toLowerCase().includes("Sports".toLowerCase()) }) ?
-        <div className='container-fluid'>
+        <div className='container-fluid justify-content-center text-center'>
           <h1>No Items Found !</h1>
         </div>
         :
         <div className='container-fluid justify-content-center text-center' id="back-card-bg-sports">
-          <div className="row row-cols-1 row-cols-md-4 gap-4 justify-content-center text-center">
+          <div className="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 gap-4 justify-content-center text-center">
             {sports.map(e => {
               if (e.itemType.toLowerCase().includes("sports".toLowerCase())) {
                 return (
@@ -33,44 +34,51 @@ export default function Sports() {
                     <div className="card" data-aos="fade-right">
                       <div className='card-header justify-content-end text-end'>
                         <button className='btn  m-2' onClick={() => {
-                          axios.post("http://localhost:8081/cart/", {
-                            "itemId": e.itemId,
-                            "itemName": e.itemName,
-                            "itemDesc": e.itemDesc,
-                            "itemPrice": e.itemPrice,
-                            "itemType": e.itemType,
-                            "itemDimensions": e.itemDimensions,
-                            "itemImgUrl": e.itemImgUrl,
-                            "itemSpec": e.itemSpec
-                          }, []).then((res) => { return (setInfo(res.data)) }).catch(console.log("hello"))
+                          if (localStorage.getItem("Raghu") && localStorage.getItem("currentuser")) {
+                            axios.post("http://localhost:8081/cart/", {
+                              "itemId": e.itemId,
+                              "itemName": e.itemName,
+                              "itemDesc": e.itemDesc,
+                              "itemPrice": e.itemPrice,
+                              "itemType": e.itemType,
+                              "itemDimensions": e.itemDimensions,
+                              "itemImgUrl": e.itemImgUrl,
+                              "itemSpec": e.itemSpec,
+                              "userId":localStorage.getItem("currentuser")
+                            }, []).then((res) => { return (setInfo(res.data)) })
+                          } else {
+                            setInfo("Login required !")
+                          }
                         }}
                           data-bs-toggle="modal" data-bs-target="#exampleModal2" data-bs-whatever="@mdo"
 
                         ><i className='fa-solid fa-cart-shopping text-info'></i></button>
                         <button className='btn ' onClick={() => {
-                          axios.post("http://localhost:8082/fav/", {
-                            "itemId": e.itemId,
-                            "itemName": e.itemName,
-                            "itemDesc": e.itemDesc,
-                            "itemPrice": e.itemPrice,
-                            "itemType": e.itemType,
-                            "itemDimensions": e.itemDimensions,
-                            "itemImgUrl": e.itemImgUrl,
-                            "itemSpec": e.itemSpec
-                          }, []).then((res) => { return (setInfo(res.data)) })
+                          if (localStorage.getItem("Raghu") && localStorage.getItem("currentuser")) {
+                            axios.post("http://localhost:8082/fav/", {
+                              "itemId": e.itemId,
+                              "itemName": e.itemName,
+                              "itemDesc": e.itemDesc,
+                              "itemPrice": e.itemPrice,
+                              "itemType": e.itemType,
+                              "itemDimensions": e.itemDimensions,
+                              "itemImgUrl": e.itemImgUrl,
+                              "itemSpec": e.itemSpec,
+                              "userId":localStorage.getItem("currentuser")
+                            }, []).then((res) => { return (setInfo(res.data)) })
+                          } else {
+                            setInfo("Login required !")
+                          }
                         }}
                           data-bs-toggle="modal" data-bs-target="#exampleModal2" data-bs-whatever="@mdo"
                         ><i className="fa-solid fa-heart text-danger"></i> </button>
                       </div>
                       <img src={e.itemImgUrl} className="card-img-top" alt="..." />
                       <div className="card-body">
-                        <h5 className="card-title" id={e.itemName}>{e.itemName}</h5>
+                        <h6 className="card-title" id={e.itemName}>{e.itemName}</h6>
                         <p className="card-text"><b>Price : </b>{e.itemPrice}</p>
-                        <p className="card-text"><b>Specfications : </b>{e.itemSpec}</p>
-                        <p className="card-text"><b>Item Dimensions : </b>{e.itemDimensions}</p>
                       </div>
-                      <a href='/mart' className='btn btn-info '>View More...</a>
-
+                      <Link to={'/view/' + e.itemId + "/" + e.itemName} className='btn btn-info'>View More...</Link>
                     </div>
                   </div>
                 )

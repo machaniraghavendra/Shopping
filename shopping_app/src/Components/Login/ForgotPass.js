@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import axios from "axios";
+import { Link } from 'react-router-dom';
 
-export default function ForgotPass() {
+export default function ForgotPass(props) {
 
     const [values, setValues] = useState({ userEmail: "", userPassword: "", userName: "", mobileNumber: "" });
 
@@ -30,9 +31,12 @@ export default function ForgotPass() {
                                 "userEmail": values.userEmail,
                                 "userPassword": values.userPassword,
                                 "userName": res.data.userName,
-                                "mobileNumber": res.data.mobileNumber
+                                "mobileNumber": res.data.mobileNumber,
+                                "userId": res.data.userId
                             })
-                                .then(res => { return (setInfo(res.data), setIsSubmit(false), setShowToast(true), timeout()) })
+                                .then(res => {
+                                    return (setInfo(res.data), setIsSubmit(false), setShowToast(true), timeout())
+                                })
                                 .catch(() => { return (setInfo("Email is not signed with us, please sign up again !"), setShowToast(true), timeout()) })
                         )
                     })
@@ -45,27 +49,29 @@ export default function ForgotPass() {
         }
     }
 
+
+
     const timeout = () => {
         setTimeout(() => {
             setShowToast(false);
-            window.location.reload()
-        }, 6000);
+            window.location.reload();
+        }, 6500);
     }
 
     const handleSubmit = (e) => {
         e.preventDefault();
         setFormErrors(validate(values));
-        (values.userEmail == userInfo.userEmail) ? setInfor(true) :setInfor(false)
+        (values.userEmail == userInfo.userEmail) ? setInfor(true) : setInfor(false)
     }
 
     const set = (e) => {
         const { name, value } = e.target
         setValues({ ...values, [name]: value })
         axios.get("http://localhost:8080/user/" + values.userEmail).then(res => { return (setuserInfo(res.data)) })
+        document.getElementById("loginbtn").classList.remove("d-none");
     }
 
     const validate = (user) => {
-        
         let errors = {};
         const regex = /^[a-zA-Z0-9+._-]+@[a-zA-Z]+[.com]+/;
 
@@ -114,10 +120,10 @@ export default function ForgotPass() {
                                     <b> Update Password</b>
                                     {
                                         infor ?
-                                        <p className='text-success opacity-75'>Hello {userInfo.userName}!  </p>:
-                                        <p className='text-danger opacity-75' id='no-message'>
-                                            {!values.userEmail==""?<>No account with this Email address</>:""}
-                                        </p>
+                                            <p className='text-success opacity-75 infohi'>Hello {userInfo.userName}!  </p> :
+                                            <p className='text-danger opacity-75' id='no-message'>
+                                                {!values.userEmail == "" ? <>No account with this Email address</> : ""}
+                                            </p>
                                     }
                                 </div>
                                 <div className="card-body ">
@@ -150,7 +156,8 @@ export default function ForgotPass() {
                                                 className="form-control" id="floatingPassword" placeholder="Password" />
                                             <label htmlFor="floatingPassword">Conform New Password</label>
                                         </div>
-                                        <div className='text-center'>
+                                        <div className='text-center d-flex' style={{ justifyContent: "space-around" }}>
+                                            <span id='loginbtn' className='d-none'><Link to='/login' className='btn btn-outline-info' >Login</Link></span>
                                             <button type='submit' className='btn btn-outline-success' onClick={check}>Change</button>
                                         </div>
                                     </form>

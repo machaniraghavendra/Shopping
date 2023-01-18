@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import axios from "axios";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import "../Login/css.css"
 import img from "../imgbin_shopping-bag-shopping-cart-computer-icons-png.png"
-import * as bootstrap from 'bootstrap/dist/js/bootstrap.esm'
 
 export default function SignUp() {
 
@@ -16,6 +15,8 @@ export default function SignUp() {
     const [info, setInfo] = useState([]);
 
     const [showToast, setShowToast] = useState(false);
+
+    const nav = useNavigate();
 
     const set = (e) => {
         const { name, value } = e.target;
@@ -35,7 +36,8 @@ export default function SignUp() {
     const timeout = () => {
         setTimeout(() => {
             setShowToast(false);
-        }, 6000);
+            nav("/login")
+        }, 6500);
     }
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -87,7 +89,9 @@ export default function SignUp() {
         }
         return errors;
     }
-
+useEffect(()=>{
+    document.title = "Sign | Shopping Mart"
+})
     return (
         <section className="  position-absolute" style={{ backgroundColor: "#9A616D", width: "100%", height: "100%" }}>
             <div className='container-fluid  h-100 vh-10' style={{ backgroundColor: "#9A616D" }}>
@@ -192,7 +196,7 @@ export default function SignUp() {
                     <div className="toast-body">
                         {info}
                         <div className="mt-2 pt-2">
-                            <button type="button" className="btn btn-outline-light btn-sm" data-bs-dismiss="toast">Ok</button>
+                            <button type="button" className="btn btn-outline-light btn-sm" data-bs-dismiss="toast" onClick={()=>{nav("/login")}}>Ok</button>
                         </div>
                     </div>
 

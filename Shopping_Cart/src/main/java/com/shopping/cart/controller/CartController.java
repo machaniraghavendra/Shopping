@@ -53,8 +53,8 @@ public class CartController {
 		return new ResponseEntity<List<CartEntity>>(cartServiceImpl.viewall(),HttpStatus.OK);
 	}
 	
-	@GetMapping("/total")
-	public String total() {
-		return cartServiceImpl.total();
-	}
+//	@GetMapping("/total")
+//	public String total() {
+//		return cartServiceImpl.total();
+//	}
 }

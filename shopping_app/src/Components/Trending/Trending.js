@@ -4,7 +4,7 @@ import "../Trending/Trend.css";
 export default function Trending() {
     return (
         <div className='container-fluid'>
-            <h2 id='trending'>Trending <i className="bi bi-stars"></i></h2>
+            <h2 id='trending'  className=' dark text-light '>Trending <i className="bi bi-stars"></i></h2>
             <div id="carouselExampleIndicators" data-aos="fade-up" data-aos-offset="200" data-aos-easing="ease-in-sine" className="carousel slide" data-bs-ride="true">
                 <div className="carousel-inner text-center ">
                     <div className="carousel-item active" data-bs-interval="4000">

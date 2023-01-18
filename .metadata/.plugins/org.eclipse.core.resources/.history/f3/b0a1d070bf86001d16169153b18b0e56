@@ -1,0 +1,90 @@
+package com.shopping.favourites.entity;
+
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+@Entity
+public class FavouritesEntity {
+
+	@Id
+	private String ItemId;
+	private int FavId;
+	private String itemName;
+	private String ItemImgUrl;
+	private String ItemPrice;
+	private String ItemDesc;
+	private String ItemSpec;
+	private String userId;
+    public String getItemId() {
+        return ItemId;
+    }
+    public void setItemId(String itemId) {
+        ItemId = itemId;
+    }
+    public int getFavId() {
+        return FavId;
+    }
+    public void setFavId(int favId) {
+        FavId = favId;
+    }
+    public String getItemName() {
+        return itemName;
+    }
+    public void setItemName(String itemName) {
+        this.itemName = itemName;
+    }
+    public String getItemImgUrl() {
+        return ItemImgUrl;
+    }
+    public void setItemImgUrl(String itemImgUrl) {
+        ItemImgUrl = itemImgUrl;
+    }
+    public String getItemPrice() {
+        return ItemPrice;
+    }
+    public void setItemPrice(String itemPrice) {
+        ItemPrice = itemPrice;
+    }
+    public String getItemDesc() {
+        return ItemDesc;
+    }
+    public void setItemDesc(String itemDesc) {
+        ItemDesc = itemDesc;
+    }
+    public String getItemSpec() {
+        return ItemSpec;
+    }
+    public void setItemSpec(String itemSpec) {
+        ItemSpec = itemSpec;
+    }
+    public String getUserId() {
+        return userId;
+    }
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+    public FavouritesEntity(String itemId, int favId, String itemName, String itemImgUrl, String itemPrice,
+            String itemDesc, String itemSpec, String userId) {
+        super();
+        ItemId = itemId;
+        FavId = favId;
+        this.itemName = itemName;
+        ItemImgUrl = itemImgUrl;
+        ItemPrice = itemPrice;
+        ItemDesc = itemDesc;
+        ItemSpec = itemSpec;
+        this.userId = userId;
+    }
+    public FavouritesEntity() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
+    @Override
+    public String toString() {
+        return "FavouritesEntity [ItemId=" + ItemId + ", FavId=" + FavId + ", itemName=" + itemName + ", ItemImgUrl="
+                + ItemImgUrl + ", ItemPrice=" + ItemPrice + ", ItemDesc=" + ItemDesc + ", ItemSpec=" + ItemSpec
+                + ", userId=" + userId + "]";
+    }
+
+	
+}

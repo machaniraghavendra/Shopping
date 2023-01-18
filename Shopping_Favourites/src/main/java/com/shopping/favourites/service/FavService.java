@@ -10,7 +10,7 @@ public interface FavService {
 
 	String save(FavouritesEntity favouritesEntity) throws ItemAlreadyInFavException;
 	String update(FavouritesEntity favouritesEntity) throws ItemNotFoundInFavException;
-	String delete(String favId) throws ItemNotFoundInFavException;
-	FavouritesEntity find(String favId) throws ItemNotFoundInFavException;
+	String delete(int favId) throws ItemNotFoundInFavException;
+	FavouritesEntity find(int favId) throws ItemNotFoundInFavException;
 	List<FavouritesEntity> viewall();
 }
