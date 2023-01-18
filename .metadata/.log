@@ -6200,3 +6200,21 @@ This warning can be switched off on the Team > Git > Confirmations and Warnings 
 
 !ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2023-01-18 13:24:13.968
 !MESSAGE executing callback sts4.classpath.IreEUxIH SUCCESS [done]
+
+!ENTRY org.eclipse.ui 2 2 2023-01-18 13:30:46.815
+!MESSAGE Invalid property category path: org.springframework.ide.eclipse.beans.ui.properties.ProjectPropertyPage (bundle: org.springframework.ide.eclipse.xml.namespaces, propertyPage: org.springframework.ide.eclipse.beans.ui.namespaces.projectPropertyPage)
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2023-01-18 13:51:48.960
+!MESSAGE exists = true open = true => deleted = false
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2023-01-18 13:51:48.963
+!MESSAGE classpath=90 entries
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2023-01-18 13:51:48.966
+!MESSAGE buffering callback sts4.classpath.IreEUxIH Shopping_Favourites false 90
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2023-01-18 13:51:48.966
+!MESSAGE executing callback sts4.classpath.IreEUxIH 1 batched events
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2023-01-18 13:51:48.985
+!MESSAGE executing callback sts4.classpath.IreEUxIH SUCCESS [done]

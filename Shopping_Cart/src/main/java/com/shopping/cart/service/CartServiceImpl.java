@@ -1,6 +1,7 @@
 package com.shopping.cart.service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,7 +16,7 @@ public class CartServiceImpl implements CartService{
 
     @Autowired
     CartRepo cartRepo;
-    private int i=1;
+//    private int i=1;
     @Override
     public String save(CartEntity cartEntity) throws ItemAlreadyInCartException{
 
@@ -23,13 +24,13 @@ public class CartServiceImpl implements CartService{
             List<CartEntity> listEntity=cartRepo.findAll().stream()
                     .filter(a->a.getUserId().equalsIgnoreCase(cartEntity.getUserId()))
                     .filter(a->a.getItemName().equalsIgnoreCase(cartEntity.getItemName()))
-                    .toList();
+                    .collect(Collectors.toList());
 
             if (!listEntity.isEmpty()) {
                 throw new ItemAlreadyInCartException("The item "+cartEntity.getItemName()+" already in your cart");
             }
             else {
-                CartEntity cart=new CartEntity(cartEntity.getItemId(),i++, cartEntity.getItemType(), cartEntity.getItemName(), cartEntity.getItemImgUrl(), cartEntity.getItemPrice(), cartEntity.getItemDesc(), cartEntity.getItemSpec(),cartEntity.getItemDimensions(),cartEntity.getUserId());
+                CartEntity cart=new CartEntity(cartEntity.getItemId(),cartEntity.getItemId(), cartEntity.getItemType(), cartEntity.getItemName(), cartEntity.getItemImgUrl(), cartEntity.getItemPrice(), cartEntity.getItemDesc(), cartEntity.getItemSpec(),cartEntity.getItemDimensions(),cartEntity.getUserId());
                 cartRepo.save(cart);
                 return "Added to your cart";
             }
@@ -57,6 +58,7 @@ public class CartServiceImpl implements CartService{
     @Override
     public String delete(int cartId) throws ItemNotFoundInCartException {
         CartEntity cartEntity=new CartEntity();
+        System.out.println(cartId);
         cartEntity=cartRepo.findById(cartId).get();
         try {
             if(!cartRepo.existsById(cartId))

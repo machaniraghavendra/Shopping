@@ -3,6 +3,7 @@ package com.shopping.favourites.service;
 
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,7 +18,6 @@ public class FavServiceImpl implements FavService{
 
 	@Autowired
 	FavRepo favRepo;
-	private int i=1;
 	@Override
 	public String save(FavouritesEntity favouritesEntity) throws ItemAlreadyInFavException {
 		try {
@@ -25,12 +25,12 @@ public class FavServiceImpl implements FavService{
 		    List<FavouritesEntity> favList=favRepo.findAll().stream().
 		            filter(a->a.getUserId().equalsIgnoreCase(favouritesEntity.getUserId()))
 		            .filter(a->a.getItemName().equalsIgnoreCase(favouritesEntity.getItemName()))
-		            .toList();
+		            .collect(Collectors.toList());
 		    
 			if(!favList.isEmpty())
 				throw new ItemAlreadyInFavException("The item "+favouritesEntity.getItemName()+" already in your favourites");
 			else {
-			    FavouritesEntity favEntity=new FavouritesEntity(favouritesEntity.getItemId(),i++, favouritesEntity.getItemType(), favouritesEntity.getItemName(), favouritesEntity.getItemImgUrl(), favouritesEntity.getItemPrice(), favouritesEntity.getItemDesc(), favouritesEntity.getItemSpec(),favouritesEntity.getItemDimensions(),favouritesEntity.getUserId());
+			    FavouritesEntity favEntity=new FavouritesEntity(favouritesEntity.getItemId(),favouritesEntity.getItemId(), favouritesEntity.getItemType(), favouritesEntity.getItemName(), favouritesEntity.getItemImgUrl(), favouritesEntity.getItemPrice(), favouritesEntity.getItemDesc(), favouritesEntity.getItemSpec(),favouritesEntity.getItemDimensions(),favouritesEntity.getUserId());
 				favRepo.save(favEntity);
 				return "Added to your Wishlist";
 			}

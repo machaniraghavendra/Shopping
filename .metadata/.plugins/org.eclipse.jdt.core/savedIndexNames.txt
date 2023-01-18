@@ -61,7 +61,6 @@ INDEX VERSION 1.131+D:\Shopping Project\Shopping\.metadata\.plugins\org.eclipse.
 2978367751.index
 2627711967.index
 2428824426.index
-3670291369.index
 3300625458.index
 3275833206.index
 818369462.index
