@@ -221,15 +221,16 @@ export default function Wishlist(props) {
                                                     }}
                                                         data-bs-toggle="modal" data-bs-target="#exampleModal2" data-bs-whatever="@mdo">
                                                         <i className='fa-solid fa-trash '></i></button>
-                                                    <a className='btn btn-warning' href={e.prodcuturl}> Buy now</a>
-
+                                                        <Link className='btn btn-warning' to={"/purchase"} onClick={()=>{
+                                                        axios.get("http://localhost:8083/purchase/"+e.itemId)
+                                                    }}> Buy now</Link>
                                                 </li>&nbsp;
 
                                             </div>
                                         )
                                     })}<br></br>
                                 </div>
-                                <b className='justify-content-end text-end'> Total products amount =<span className='text-success'> {totalAmount} </span>-&gt; <a className='btn btn-warning' > Buy now</a></b>
+                                <b className='justify-content-end text-end'> Total products amount =<span className='text-success'> {totalAmount} </span></b>
                             </div>
 
                         </div>

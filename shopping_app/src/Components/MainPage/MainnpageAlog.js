@@ -5,6 +5,7 @@ import axios from "axios";
 import img from "../imgbin_shopping-bag-shopping-cart-computer-icons-png.png"
 import { Link, useNavigate } from "react-router-dom";
 import Login from "../Login/Login";
+import chatBot from "../ChatBot/chatBot";
 
 export default function MainPageAlog(props) {
 
@@ -62,13 +63,15 @@ export default function MainPageAlog(props) {
             title.innerHTML = "Contents";
         }
     }
-
+    if (userName==undefined) {
+      localStorage.removeItem("currentuser")
+      localStorage.removeItem("Raghu")
+    }
     useEffect(() => {
         sessionStorage.getItem("dark") ? document.body.style = " background: linear-gradient(140deg, #050505 60%, rgb(22, 14, 132) 0%)"
             : document.body.style = "background: radial-gradient( #f5ff37, rgb(160, 255, 97))"
         window.onscroll = () => check();
         currentuser();
-       console.log(what);
         document.title = "Mart | Shopping Mart"
         setTimeout(() => {
             if (!localStorage.getItem("Raghu") && !localStorage.getItem("currentuser")) {
@@ -130,6 +133,9 @@ export default function MainPageAlog(props) {
                                         </li>
                                         <li className="nav-item">
                                             <Link className="nav-link text-dark" to="/wishlist"><h5><i className="fa-solid fa-heart fa-beat text-danger"></i> Wishlist</h5></Link>
+                                        </li>
+                                        <li className="nav-item">
+                                            <Link className="nav-link text-dark" to="/orders"><h5><i className="fa-solid fa-bag-shopping fa-beat text-warning"></i>  My Orders</h5></Link>
                                         </li>
                                     </ul>
 
@@ -362,7 +368,7 @@ export default function MainPageAlog(props) {
                         <h4><i className="fa-solid fa-angle-up"></i></h4></button>
                 </div>
 
-
+                    {chatBot()}
                 <div className="modal fade " id="exampleModal3" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div className="modal-dialog">
                         <div className="modal-content logout-model">

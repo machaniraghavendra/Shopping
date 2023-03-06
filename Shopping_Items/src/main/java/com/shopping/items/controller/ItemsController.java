@@ -1,6 +1,7 @@
 package com.shopping.items.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,9 +22,12 @@ import com.shopping.items.exception.ItemAlreadyException;
 import com.shopping.items.exception.ItemNotFoundException;
 import com.shopping.items.service.ItemService;
 
+import io.swagger.annotations.Api;
+
 @RestController
 @CrossOrigin(origins = "http://localhost:3000")
 @RequestMapping("/items/")
+@Api(tags="Items" , description = "Gives all items data")
 public class ItemsController {
 
 	@Autowired
@@ -55,8 +59,8 @@ public class ItemsController {
 	}
 	
 	@GetMapping("/{id}")
-	public ResponseEntity<ItemEntity> find(@PathVariable("id") int itemId) throws ItemNotFoundException{
-		return new ResponseEntity<ItemEntity>(itemService.find(itemId),HttpStatus.OK);
+	public ResponseEntity<List<Object>> find(@PathVariable("id") int itemId) throws ItemNotFoundException{
+		return new ResponseEntity<List<Object>>(itemService.find(itemId),HttpStatus.OK);
 	}
 	
 	@GetMapping("/")

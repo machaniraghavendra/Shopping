@@ -184,13 +184,16 @@ export default function Settings(props) {
                                     <div className="offcanvas-body bg-secondary ">
                                         <ul className="navbar-nav me-auto mb mb-lg-0 listss ">
                                             <li className="nav-item">
-                                                <Link className="nav-link " to="/mart"><i className="fa-solid fa-home text-warning"></i> Home</Link>
+                                                <Link className="nav-link " to="/mart"><i className="fa-solid fa-home text-light"></i> Home</Link>
                                             </li>
                                             <li className="nav-item">
                                                 <Link className="nav-link " to="/cart"><i className="fa-solid fa-cart-shopping text-info"></i> Cart</Link>
                                             </li>
                                             <li className="nav-item">
                                                 <Link className="nav-link " to="/wishlist"><i className="fa-solid fa-heart text-danger"></i> Wishlist</Link>
+                                            </li>
+                                            <li className="nav-item">
+                                                <Link className="nav-link " to="/orders"><i className="fa-solid fa-bag-shopping text-warning"></i> My Orders</Link>
                                             </li>
                                         </ul>
 

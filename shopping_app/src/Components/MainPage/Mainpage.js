@@ -18,7 +18,7 @@ export default function MainPage() {
 
 
     var count = 0;
-
+    
     const fetch = () => {
         axios.get("http://localhost:8083/items/")
             .then((res) => { return (setData(res.data)) })

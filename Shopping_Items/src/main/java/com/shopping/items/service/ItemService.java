@@ -12,6 +12,6 @@ public interface ItemService {
 	String update(ItemEntity itemEntity) throws ItemNotFoundException;
 	String delete(int itemId) throws ItemNotFoundException;
 	String deleteAll();
-	ItemEntity find(int itemId) throws ItemNotFoundException;
+	List<Object> find(int itemId) throws ItemNotFoundException;
 	List<ItemEntity> viewall();
 }

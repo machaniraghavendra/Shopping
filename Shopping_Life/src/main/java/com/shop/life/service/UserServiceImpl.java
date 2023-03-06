@@ -4,10 +4,12 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import com.shop.life.entity.UserEntity;
 import com.shop.life.exception.UserAlreadyExistsException;
 import com.shop.life.exception.UserNotFoundException;
 import com.shop.life.repo.UserRepo;
+
 
 @Service
 public class UserServiceImpl implements UserService{
@@ -15,8 +17,11 @@ public class UserServiceImpl implements UserService{
 	@Autowired
 	UserRepo userRepo;
 
+
+	
 	@Override
 	public String save(UserEntity userEntity) throws UserAlreadyExistsException{
+		userEntity.setUserEmail(userEntity.getUserEmail().toLowerCase());
 		try {
 			if(userRepo.existsById(userEntity.getUserName())||userRepo.existsById(userEntity.getUserEmail()))
 			{
@@ -34,6 +39,7 @@ public class UserServiceImpl implements UserService{
 
 	@Override
 	public UserEntity find(String userEmail) throws UserNotFoundException {
+		userEmail=userEmail.toLowerCase();
 		try {
 			if(userRepo.existsById(userEmail))
 			{
@@ -55,6 +61,7 @@ public class UserServiceImpl implements UserService{
 
 	@Override
 	public String delete(String userEmail) throws UserNotFoundException{
+		userEmail=userEmail.toLowerCase();
 		try {
 			if (!userRepo.existsById(userEmail)) {
 				throw new UserNotFoundException("The user "+userEmail+" does not exists");
@@ -70,6 +77,7 @@ public class UserServiceImpl implements UserService{
 
 	@Override
 	public String update(UserEntity userEntity)  throws UserNotFoundException{
+		userEntity.setUserEmail(userEntity.getUserEmail().toLowerCase());
 		try {
 			if(!(userRepo.existsById(userEntity.getUserName())||userRepo.existsById(userEntity.getUserEmail())))
 			{
@@ -87,6 +95,7 @@ public class UserServiceImpl implements UserService{
 
 	@Override
 	public boolean check(String userEmail, String Password) {
+		userEmail=userEmail.toLowerCase();
 		UserEntity user=new UserEntity();
 		if(userRepo.existsById(userEmail))
 		{

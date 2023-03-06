@@ -18,6 +18,9 @@ import View from "./Components/View/View";
 import { useState } from "react";
 import axios from "axios";
 import Settings from "./Components/Settings/Settings";
+import Buypage from "./Components/PurchasePage/BuyPage";
+import Orders from "./Components/Orders/Orders";
+import OrderDetails from "./Components/Orders/OrderDetails";
 
 function App() {
   let user = localStorage.getItem("currentuser")
@@ -33,6 +36,7 @@ function App() {
   currentuser();
 
   if (localStorage.getItem("Raghu") && localStorage.getItem("currentuser") && what) {
+    
     return (
       <div className="App">
         <Router>
@@ -43,7 +47,10 @@ function App() {
             <Route path="/wishlist" element={<Wishlist user={user} />} />
             <Route path="/login/forgot/password" element={<ForgotPass  user={user}  />} />
             <Route path="/view/*" element={<View user={user} />} />
+            <Route path="/purchase" element={<Buypage user={user}/>}/>
             <Route path="/profile/settings" element={<Settings user={user} />} />
+            <Route path="/orders" element={<Orders user={user}/>}/>
+            <Route path="/orderdetails" element={<OrderDetails user={user}/>}/>
             <Route path="/mart" element={
               <>
                 <MainpageAlog user={user} />

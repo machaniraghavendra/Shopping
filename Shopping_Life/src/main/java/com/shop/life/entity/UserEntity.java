@@ -11,15 +11,14 @@ import javax.persistence.Table;
 @Entity
 @Table(name="UserStory")
 public class UserEntity implements Serializable{
-
+	private static final long serialVersionUID = 12345L;
+	
 	@Id
 	private String UserEmail;
 	private String UserName;
 	private String UserPassword;
 	private String MobileNumber;
-	   
-	@OneToMany(fetch = FetchType.LAZY ,mappedBy = "userEntity")
-	private List<CartEntity> cartEntity;
+	  
 	
 	public UserEntity() {
 	

@@ -1,15 +1,16 @@
 package com.shopping.items.service;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.shopping.items.entity.ItemEntity;
 import com.shopping.items.exception.ItemAlreadyException;
 import com.shopping.items.exception.ItemNotFoundException;
+import com.shopping.items.exception.ItemsExceptionHandler;
 import com.shopping.items.repo.ItemsRepo;
 
 @Service
@@ -17,6 +18,9 @@ public class ItemServiceImpl implements ItemService{
 
 	@Autowired
 	ItemsRepo itemsRepo;
+	
+	@Autowired
+	ItemsExceptionHandler itemExceptionHandler;
 	
 	@Override
 	public String save(ItemEntity itemEntity) throws ItemAlreadyException {
@@ -64,17 +68,18 @@ public class ItemServiceImpl implements ItemService{
 	}
 
 	@Override
-	public ItemEntity find(int itemId) throws ItemNotFoundException {
+	public List<Object> find(int itemId) throws ItemNotFoundException {
+		List<Object> value=new ArrayList<>();
 		try {
 			if(!itemsRepo.existsById(itemId))
 				throw new ItemNotFoundException("The item "+itemId+" not exists in your cart");
-			else {
-				return itemsRepo.findById(itemId).get();
+			else {	
+				 value.add(itemsRepo.findById(itemId).get());
 			}
 		} catch (ItemNotFoundException e) {
-			e.printStackTrace();
+		 value.add(itemExceptionHandler.itemNotFoundException(e));
 		}
-		return null;
+		 return value;
 	}
 
 	@Override

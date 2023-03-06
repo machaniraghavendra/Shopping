@@ -19,6 +19,13 @@ export default function Cartpage(props) {
 
     const[userName,setUserName]=useState("");
 
+    const [showToast,setShowToast]=useState(false);
+
+    const timeout = () => {
+        setTimeout(() => {
+            setShowToast(false);
+        }, 4000);
+    }
     let total=0;
     let totalAmount="";
     var count = 0;
@@ -176,7 +183,7 @@ export default function Cartpage(props) {
 
                                                 <div className='card-header justify-content-end text-end'>
                                                     <button className='btn  m-2' onClick={() => {
-                                                        axios.delete("http://localhost:8081/cart/" + e.itemId).then((res) => { return (setInfo(res.data), fetch()) })
+                                                        axios.delete("http://localhost:8081/cart/" + e.itemId).then((res) => { return (setInfo(res.data), fetch(), setShowToast(true),timeout()) })
                                                     }}
                                                         data-bs-toggle="modal" data-bs-target="#exampleModal2" data-bs-whatever="@mdo"
                                                     ><i className='fa-solid fa-trash text-danger'></i></button>
@@ -192,12 +199,11 @@ export default function Cartpage(props) {
                                                                 "itemImgUrl": e.itemImgUrl,
                                                                 "itemSpec": e.itemSpec,
                                                                 "userId":localStorage.getItem("currentuser")
-                                                            }, []).then((res) => { return (setInfo(res.data)) })
+                                                            }, []).then((res) => { return (setInfo(res.data),setShowToast(true),timeout()) })
                                                         } else {
                                                             setInfo("Login required !")
                                                         }
                                                     }}
-                                                        data-bs-toggle="modal" data-bs-target="#exampleModal2" data-bs-whatever="@mdo"
                                                     ><i className="fa-solid fa-heart text-danger"></i> </button>
                                                 </div>
                                                 <img src={e.itemImgUrl} className="card-img-top" alt="..." />
@@ -229,19 +235,20 @@ export default function Cartpage(props) {
                                                 <li >
                                                     {e.itemName} = {e.itemPrice} -&gt;
                                                     <button className='btn btn-outline-danger m-2' onClick={() => {
-                                                        axios.delete("http://localhost:8081/cart/" + e.itemId).then((res) => { return (setInfo(res.data), fetch()) })
+                                                        axios.delete("http://localhost:8081/cart/" + e.itemId).then((res) => { return (setInfo(res.data), fetch(), setShowToast(true), timeout()) })
                                                     }}
                                                         data-bs-toggle="modal" data-bs-target="#exampleModal2" data-bs-whatever="@mdo">
                                                         <i className='fa-solid fa-trash '></i></button>
-                                                    <a className='btn btn-warning' href={e.prodcuturl}> Buy now</a>
-
+                                                    <Link className='btn btn-warning' to={"/purchase"} onClick={()=>{
+                                                        axios.get("http://localhost:8083/purchase/"+e.itemId)
+                                                    }}> Buy now</Link>
                                                 </li>&nbsp;
 
                                             </div>
                                         )
                                     })}<br></br>
                                 </div>
-                                <b className='justify-content-end text-end'> Total products amount =<span className='text-success'> {totalAmount} </span>-&gt; <a className='btn btn-warning' > Buy now</a></b>
+                                <b className='justify-content-end text-end'> Total products amount =<span className='text-success'> {totalAmount} </span></b>
                             </div>
 
                         </div>
@@ -265,18 +272,16 @@ export default function Cartpage(props) {
             </div>
 
             {/* Popup */}
-            <div className="modal fade" id="exampleModal2" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div className="modal-dialog">
-                    <div className="modal-content">
-                        <div className="modal-body">
-                            <h4>{info}</h4>
-                        </div>
-                        <div className="modal-footer">
-                            <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            {showToast && <div className="toast  fade show" role="alert" aria-live="assertive" aria-atomic="true">
+                    <div className="d-flex">
+                        <div className="toast-body">
+                            {info}
+                            <div className="mt-2 pt-2">
+                                <button type="button" className="btn btn-outline-light btn-sm" data-bs-dismiss="toast">Ok</button>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </div>
+                </div>}
 
             {/* Search bar */}
 
