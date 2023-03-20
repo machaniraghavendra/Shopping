@@ -4,6 +4,7 @@ import "../Settings/Prof.css"
 import img from "../imgbin_shopping-bag-shopping-cart-computer-icons-png.png"
 import { Link } from "react-router-dom";
 import Footer from '../Footer/Footer';
+import ChatBot from '../ChatBot/ChatBot';
 
 export default function Settings(props) {
 
@@ -324,7 +325,7 @@ export default function Settings(props) {
                         </div>
                     </div>
                 </div>
-
+                <ChatBot/>
                 <Footer />
                 {showToast && <div className="toast  fade show" role="alert" aria-live="assertive" aria-atomic="true">
                     <div className="d-flex">

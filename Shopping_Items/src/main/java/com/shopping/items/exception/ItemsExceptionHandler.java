@@ -20,7 +20,6 @@ public class ItemsExceptionHandler {
 		if (e.getStatusCode()==null) {
 			e.setStatusCode(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-		
 		TraceableError traceError=TraceableError.builder()
 				.errorMessage(e.getMessage())
 				.errorCode(String.valueOf(e.getStatusCode().value()))
@@ -30,13 +29,12 @@ public class ItemsExceptionHandler {
 				.build();
 		return new ResponseEntity<>(traceError,e.getStatusCode());
 	}
-	
+
 	@ExceptionHandler(value=ItemAlreadyException.class)
 	public ResponseEntity<TraceableError> itemAlreadyExistsException(ItemAlreadyException e){
 		if (e.getStatusCode()==null) {
 			e.setStatusCode(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-		
 		TraceableError traceError=TraceableError.builder()
 				.errorMessage(e.getMessage())
 				.errorCode(String.valueOf(e.getStatusCode().value()))
@@ -46,13 +44,12 @@ public class ItemsExceptionHandler {
 				.build();
 		return new ResponseEntity<>(traceError,e.getStatusCode());
 	}
-	
+
 	@ExceptionHandler(value=OrderWithSameItemExistsException.class)
 	public ResponseEntity<TraceableError> orderWithSameItemExistsException(OrderWithSameItemExistsException e){
 		if (e.getStatusCode()==null) {
 			e.setStatusCode(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-		
 		TraceableError traceError=TraceableError.builder()
 				.errorMessage(e.getMessage())
 				.errorCode(String.valueOf(e.getStatusCode().value()))
@@ -62,13 +59,12 @@ public class ItemsExceptionHandler {
 				.build();
 		return new ResponseEntity<>(traceError,e.getStatusCode());
 	}
-	
+
 	@ExceptionHandler(value=OrderNotFoundException.class)
 	public ResponseEntity<TraceableError> orderNotFoundException(OrderNotFoundException e){
 		if (e.getStatusCode()==null) {
 			e.setStatusCode(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-		
 		TraceableError traceError=TraceableError.builder()
 				.errorMessage(e.getMessage())
 				.errorCode(String.valueOf(e.getStatusCode().value()))
@@ -78,4 +74,6 @@ public class ItemsExceptionHandler {
 				.build();
 		return new ResponseEntity<>(traceError,e.getStatusCode());
 	}
+
+
 }

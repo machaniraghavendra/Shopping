@@ -3,6 +3,7 @@ import axios from "axios"
 import img from "../imgbin_shopping-bag-shopping-cart-computer-icons-png.png"
 import { Link } from "react-router-dom";
 import Footer from '../Footer/Footer';
+import ChatBot from '../ChatBot/ChatBot';
 
 export default function Wishlist(props) {
     const [search, setSearch] = useState("");
@@ -17,7 +18,13 @@ export default function Wishlist(props) {
 
     const[userName,setUserName]=useState("");
 
-
+    const [showToast, setShowToast] = useState(false);    
+    
+    const timeout = () => {
+        setTimeout(() => {
+            setShowToast(false);
+        }, 4000);
+    }
     let total=0;
     let totalAmount="";
 
@@ -84,7 +91,7 @@ export default function Wishlist(props) {
                                 <br></br>
                                 <div className="btn-group">
                                     <button type="button" className="btn btn-none dropdown-toggle" data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">
-                                        <i className="fa-solid fa-user"></i>{userName}
+                                        <i className="fa-solid fa-user"></i> {userName}
                                     </button>
                                     <ul className="dropdown-menu bg-secondary-warning dropdown-menu-lg-end user">
                                         <li><Link className="dropdown-item" to={"/profile/settings"}><i className='fa-solid fa-gear'></i> Settings</Link></li>
@@ -168,7 +175,7 @@ export default function Wishlist(props) {
 
                                                 <div className='card-header justify-content-end text-end'>
                                                     <button className='btn  m-2' onClick={() => {
-                                                        axios.delete("http://localhost:8082/fav/" + e.itemId).then((res) => { return (setInfo(res.data), fetch()) })
+                                                        axios.delete("http://localhost:8082/fav/" + e.itemId).then((res) => { return (setInfo(res.data),setShowToast(true),timeout(), fetch()) })
                                                     }}
                                                         data-bs-toggle="modal" data-bs-target="#exampleModal2" data-bs-whatever="@mdo"
                                                     ><i className='fa-solid fa-trash text-danger'></i></button>
@@ -184,19 +191,18 @@ export default function Wishlist(props) {
                                                                 "itemImgUrl": e.itemImgUrl,
                                                                 "itemSpec": e.itemSpec,
                                                                 "userId":localStorage.getItem("currentuser")
-                                                            }, []).then((res) => { return (setInfo(res.data)) })
+                                                            }, []).then((res) => { return (setInfo(res.data),setShowToast(true),timeout()) })
                                                         } else {
                                                             setInfo("Login required !")
                                                         }
                                                     }}
-                                                        data-bs-toggle="modal" data-bs-target="#exampleModal2" data-bs-whatever="@mdo"
                                                     ><i className="fa-solid fa-cart-shopping text-info"></i> </button>
                                                 </div>
                                                 <img src={e.itemImgUrl} className="card-img-top" alt="..." />
 
                                                 <div className="card-body">
-                                                    <h6 className="card-title" id={e.itemName}>{e.itemName}</h6>
-                                                    <p className="card-text">{e.itemPrice}</p>
+                                                    <h6 className="card-title text-truncate" id={e.itemName}>{e.itemName}</h6>
+                                                    <p className="card-text text-truncate">{e.itemPrice}</p>
                                                 </div>
                                                 <Link to={'/view/' + e.itemId + "/" + e.itemName} className='btn btn-info'>View More...</Link>
                                             </div>
@@ -217,7 +223,7 @@ export default function Wishlist(props) {
                                                 <li >
                                                     {e.itemName} = {e.itemPrice} -&gt;
                                                     <button className='btn btn-outline-danger m-2' onClick={() => {
-                                                        axios.delete("http://localhost:8082/fav/" + e.itemId).then((res) => { return (setInfo(res.data), fetch()) })
+                                                        axios.delete("http://localhost:8082/fav/" + e.itemId).then((res) => { return (setInfo(res.data),setShowToast(true),timeout(), fetch()) })
                                                     }}
                                                         data-bs-toggle="modal" data-bs-target="#exampleModal2" data-bs-whatever="@mdo">
                                                         <i className='fa-solid fa-trash '></i></button>
@@ -254,19 +260,16 @@ export default function Wishlist(props) {
             </div>
 
             {/* Popup */}
-            <div className="modal fade" id="exampleModal2" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div className="modal-dialog">
-                    <div className="modal-content">
-                        <div className="modal-body">
-                            <h4>{info}</h4>
-                        </div>
-                        <div className="modal-footer">
-                            <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            {showToast &&<div className="toast  fade show" role="alert" aria-live="assertive" aria-atomic="true">
+                <div className="d-flex">
+                    <div className="toast-body ">
+                       <p className='text-truncate'>{info}</p> 
+                        <div className="mt-2 pt-2">
+                            <button type="button" className="btn btn-outline-light btn-sm" data-bs-dismiss="toast">Ok</button>
                         </div>
                     </div>
                 </div>
-            </div>
-
+            </div>}     
             {/* Search bar */}
 
             <div className="modal fade " id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -356,6 +359,7 @@ export default function Wishlist(props) {
                     </div>
                 </div>
             </div >
+            <ChatBot/>
 
             {/* Logout Popup */}
             <div className="modal fade " id="exampleModal3" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

@@ -4,6 +4,7 @@ import axios from "axios"
 import { Link, useNavigate } from "react-router-dom";
 import Footer from '../Footer/Footer';
 import img from "../imgbin_shopping-bag-shopping-cart-computer-icons-png.png"
+import ChatBot from '../ChatBot/ChatBot';
 
 export default function Orders(props) {
 
@@ -44,104 +45,107 @@ export default function Orders(props) {
     }, []);
 
     return (
-        <div className='container-fluid' style={{ fontSize: "13px" }}>
-            {/* Header */}
-            < header className='cart-head' >
-                <div className='container-fluid '>
-                    <nav className="navbar bg-none navbar-expand-lg sticky-top">
-                        <div className="container-fluid ">
-                            <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
-                                <i className="fa-thin fa-arrow-left btn m-1" style={{ fontFamily: "fontAwesome" }} onClick={() => { return (window.history.back()) }}></i>
-                                <span className="navbar-toggler-icon"></span>
-                            </button>
-                            <i className="fa-thin fa-arrow-left btn m-1 d-none d-lg-block" style={{ fontFamily: "fontAwesome" }} onClick={() => { return (window.history.back()) }}></i>
-                            <Link to="/mart" className='nav-link' >  <h1 className="navbar-brand" >
-                                <img src={img} alt="" width="30" height="30" className="d-inline-block align-text-top" />
-                                &nbsp;Shopping Mart
-                            </h1></Link><br></br>
-                            <div className="collapse navbar-collapse justify-content-end gap-2" id="navbarTogglerDemo03">
-                                <br></br>
-                                <div className="btn-group">
-                                    <button type="button" className="btn btn-none dropdown-toggle" data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">
-                                        <i className="fa-solid fa-user"></i>&nbsp; {user.userName}
-                                    </button>
-                                    <ul className="dropdown-menu bg-secondary-warning dropdown-menu-lg-end user">
-                                        <li><Link className="dropdown-item" to={"/profile/settings"}><i className='fa-solid fa-gear'></i> Settings</Link></li>
-                                        <li>
-                                            <a className="dropdown-item text-center">
-                                                <button className="btn btn-outline-danger  justify-content-end " data-bs-toggle="modal" data-bs-target="#exampleModal3" data-bs-whatever="@fat"
-                                                ><i className="fa-solid fa-power-off"></i> Sign out
-                                                </button>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>&nbsp;
+        <div>
+            <div className='container-fluid' style={{ fontSize: "13px" }}>
+                {/* Header */}
+                < header className='cart-head' >
+                    <div className='container-fluid '>
+                        <nav className="navbar bg-none navbar-expand-lg sticky-top">
+                            <div className="container-fluid ">
+                                <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+                                    <i className="fa-thin fa-arrow-left btn m-1" style={{ fontFamily: "fontAwesome" }} onClick={() => { return (window.history.back()) }}></i>
+                                    <span className="navbar-toggler-icon"></span>
+                                </button>
+                                <i className="fa-thin fa-arrow-left btn m-1 d-none d-lg-block" style={{ fontFamily: "fontAwesome" }} onClick={() => { return (window.history.back()) }}></i>
+                                <Link to="/mart" className='nav-link' >  <h1 className="navbar-brand" >
+                                    <img src={img} alt="" width="30" height="30" className="d-inline-block align-text-top" />
+                                    &nbsp;Shopping Mart
+                                </h1></Link><br></br>
+                                <div className="collapse navbar-collapse justify-content-end gap-2" id="navbarTogglerDemo03">
+                                    <br></br>
+                                    <div className="btn-group">
+                                        <button type="button" className="btn btn-none dropdown-toggle" data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">
+                                            <i className="fa-solid fa-user"></i>&nbsp; {user.userName}
+                                        </button>
+                                        <ul className="dropdown-menu bg-secondary-warning dropdown-menu-lg-end user">
+                                            <li><Link className="dropdown-item" to={"/profile/settings"}><i className='fa-solid fa-gear'></i> Settings</Link></li>
+                                            <li>
+                                                <a className="dropdown-item text-center">
+                                                    <button className="btn btn-outline-danger  justify-content-end " data-bs-toggle="modal" data-bs-target="#exampleModal3" data-bs-whatever="@fat"
+                                                    ><i className="fa-solid fa-power-off"></i> Sign out
+                                                    </button>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>&nbsp;
+                                </div>
                             </div>
-                        </div>
-                    </nav>
-                </div>
-            </header>
-            <div className='container my-4'>
-                <div className='row rounded-5  '>
-                    {orders.filter(a => a.userDetails.userEmail == user.userEmail).length == 0 ?
-                        <div className='container d-flex justify-content-center w-100 h-100'>
-                            <div className='text-center card-color p-3 w-50'>
-                                <img src={img} alt="" width="100" height="100" className="d-inline-block align-text-top m-4" />
-                                <h5>No orders Found</h5>
-                                <Link to={"/mart"} className="btn btn-outline-primary m-2 ">View products</Link>
+                        </nav>
+                    </div>
+                </header>
+                <div className='container my-4'>
+                    <div className='row rounded-5  '>
+                        <h2 className='align-items-center d-flex justify-content-center text-info'>Your Orders </h2>
+                        {orders.filter(a => a.userDetails.userEmail == user.userEmail).length == 0 ?
+                            <div className='container w-100 h-100'>
+                                <div className='text-center card-color p-3 w-50'>
+                                    <img src={img} alt="" width="100" height="100" className="d-inline-block align-text-top m-4" />
+                                    <h5>No orders Found</h5>
+                                    <Link to={"/mart"} className="btn btn-outline-primary m-2 ">View products</Link>
+                                </div>
                             </div>
-                        </div>
-                        :
-                        orders.filter(a => {
-                            return (a.userDetails.userEmail == user.userEmail)
-                        }).map(item => {
-                            return (
-                                <div className='col-lg-6 ' key={item.orderId}>
-                                    <div className="card mb-3 orderCard card-color" style={{height:"100%"}} >
-                                        <div className="row g-0" >
-                                            <div className="col-md-4 d-none d-lg-block">
-                                                <img src={item.itemEntity.map(a => { return (a.itemImgUrl) })} className="img-fluid rounded-start d-lg-block d-none " alt={item.itemEntity.map(a => { return (a.itemName) })} />
-                                            </div>
-                                            <div className="col-md-8">
-                                                <div className="card-body">
-                                                    <Link to={'/orderdetails'} className="link-info  stretched-link" onClick={() => { viewOrder(item.orderId) }}></Link><h5 className="card-title">{item.itemEntity.map(a => { return (a.itemName) })} </h5>
-                                                    <p className="card-text"><small className="text-muted">Ordered on {item.orderedOn}</small></p>
+                            :
+                            orders.filter(a => {
+                                return (a.userDetails.userEmail == user.userEmail)
+                            }).map(item => {
+                                return (
+                                    <div className='col-lg-6 ' key={item.orderId}>
+                                        <div className="card mb-3 orderCard card-color" style={{ height: "100%" }} >
+                                            <div className="row g-0" >
+                                                <div className="col-md-4 d-none d-lg-block">
+                                                    <img src={item.itemEntity.map(a => { return (a.itemImgUrl) })} className="img-fluid rounded-start d-lg-block d-none " alt={item.itemEntity.map(a => { return (a.itemName) })} />
+                                                </div>
+                                                <div className="col-md-8">
+                                                    <div className="card-body">
+                                                        <Link to={'/orderdetails'} className="link-info  stretched-link" onClick={() => { viewOrder(item.orderId) }}></Link><h5 className="card-title">{item.itemEntity.map(a => { return (a.itemName) })} </h5>
+                                                        <p className="card-text"><small className="text-muted">Ordered on {item.orderedOn}</small></p>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            )
-                        })
-                    }
+                                )
+                            })
+                        }
+                    </div>
                 </div>
-            </div>
 
-            {/* Logout popup */}
-            <div className="modal fade " id="exampleModal3" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div className="modal-dialog">
-                    <div className="modal-content logout-model">
-                        <div className="modal-header">
-                            <h5 className="modal-title " id="exampleModalLabel"><img src={img} alt="" width="30" height="30" className="d-inline-block align-text-top" /> Shopping mart</h5>
-                            <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div className="modal-body text-center">
-                            <h5>Conform to logout</h5>
-                        </div>
-                        <div className="modal-footer">
-                            <button type="button" className="btn btn-outline-success" data-bs-dismiss="modal">No</button>
-                            <button type="button" className="btn btn-outline-danger"
-                                onClick={() => {
-                                    return (localStorage.removeItem("currentuser"),
-                                        localStorage.removeItem("Raghu"),
-                                        window.location.reload())
-                                }}
-                            >Yes</button>
+                {/* Logout popup */}
+                <div className="modal fade " id="exampleModal3" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div className="modal-dialog">
+                        <div className="modal-content logout-model">
+                            <div className="modal-header">
+                                <h5 className="modal-title " id="exampleModalLabel"><img src={img} alt="" width="30" height="30" className="d-inline-block align-text-top" /> Shopping mart</h5>
+                                <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div className="modal-body text-center">
+                                <h5>Conform to logout</h5>
+                            </div>
+                            <div className="modal-footer">
+                                <button type="button" className="btn btn-outline-success" data-bs-dismiss="modal">No</button>
+                                <button type="button" className="btn btn-outline-danger"
+                                    onClick={() => {
+                                        return (localStorage.removeItem("currentuser"),
+                                            localStorage.removeItem("Raghu"),
+                                            window.location.reload())
+                                    }}
+                                >Yes</button>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-
+            <ChatBot />
         </div>
     )
 }

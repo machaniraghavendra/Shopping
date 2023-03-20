@@ -1,20 +1,16 @@
 package com.shopping.items.service;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
+import java.text.SimpleDateFormat;
+
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Date;
 import java.util.List;
-import java.util.Map;
 import java.util.UUID;
 
-import org.hibernate.query.criteria.internal.expression.function.CurrentDateFunction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.shopping.items.entity.ItemEntity;
 import com.shopping.items.entity.OrderDetailsOfUser;
-import com.shopping.items.entity.UserDetails;
 import com.shopping.items.exception.ItemNotFoundException;
 import com.shopping.items.exception.ItemsExceptionHandler;
 import com.shopping.items.exception.OrderNotFoundException;
@@ -58,6 +54,7 @@ public class OrderDetailsServImpl implements OrderDetailsServ{
 		List<Object> itemEntity=itemServiceImpl.find(ItemId);
 		orderDetailsOfUser=OrderDetailsOfUser.builder()
 				.orderId(orderDetailsOfUser.getOrderId())
+				.uuidId(UUID.randomUUID())
 				.userDetails(orderDetailsOfUser.getUserDetails())
 				.itemEntity(itemEntity)
 				.firstName(orderDetailsOfUser.getFirstName())
@@ -68,8 +65,9 @@ public class OrderDetailsServImpl implements OrderDetailsServ{
 				.pincode(orderDetailsOfUser.getPincode())
 				.paymentType(orderDetailsOfUser.getPaymentType())
 				.orderQuantity(orderDetailsOfUser.getOrderQuantity())
-				.orderedOn(LocalDate.now()).
-				orderedAt(LocalTime.now()).build();
+				.orderedOn(getDate()).
+				orderedAt(getTime())
+				.build();
 
 		return saveOrder(orderDetailsOfUser);
 	}
@@ -77,7 +75,7 @@ public class OrderDetailsServImpl implements OrderDetailsServ{
 	public List<OrderDetailsOfUser> getAllOrders(){
 		return orderRepo.findAll();
 	}
-	
+
 	List<Object> order=new ArrayList<>();
 
 	@Override
@@ -94,8 +92,16 @@ public class OrderDetailsServImpl implements OrderDetailsServ{
 		}
 		return order;
 	}
-	
+
 	public List<Object> getOrder(){
 		return order;
 	}
+
+	public String getDate() {
+		return new SimpleDateFormat("dd-MM-YYYY").format(new Date());
+	}
+	public String getTime() {
+		return new SimpleDateFormat("HH:mm:ss").format(new Date());
+	}
+	
 }

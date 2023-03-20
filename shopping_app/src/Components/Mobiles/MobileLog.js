@@ -10,9 +10,17 @@ export default function MobileLog(props) {
 
     const [info, setInfo] = useState("");
 
+    const [showToast, setShowToast] = useState(false);
+
     const fetch = () => {
         axios.get("http://localhost:8083/items/")
             .then((res) => { return (setMobiles(res.data)) })
+    }
+
+    const timeout = () => {
+        setTimeout(() => {
+            setShowToast(false);
+        }, 4000);
     }
 
     const check = () => {
@@ -28,7 +36,6 @@ export default function MobileLog(props) {
 
     useEffect(() => {
         check();
-        console.log();
         return (fetch())
     }, [])
 
@@ -60,14 +67,12 @@ export default function MobileLog(props) {
                                                             "itemDimensions": e.itemDimensions,
                                                             "itemImgUrl": e.itemImgUrl,
                                                             "itemSpec": e.itemSpec,
-                                                            "userId":localStorage.getItem("currentuser")
-                                                        }, []).then((res) => { return (setInfo(res.data)) })
+                                                            "userId": localStorage.getItem("currentuser")
+                                                        }, []).then((res) => { return (setInfo(res.data), setShowToast(true), timeout()) })
                                                     } else {
                                                         setInfo("Login required")
                                                     }
                                                 }}
-                                                    data-bs-toggle="modal" data-bs-target="#exampleModal1" data-bs-whatever="@mdo"
-
                                                 ><i className='fa-solid fa-cart-shopping text-info'></i></button>
                                                 <button className='btn ' onClick={() => {
                                                     if (localStorage.getItem("Raghu") && localStorage.getItem("currentuser")) {
@@ -80,20 +85,19 @@ export default function MobileLog(props) {
                                                             "itemDimensions": e.itemDimensions,
                                                             "itemImgUrl": e.itemImgUrl,
                                                             "itemSpec": e.itemSpec,
-                                                            "userId":localStorage.getItem("currentuser")
-                                                        }, []).then((res) => { return (setInfo(res.data)) })
+                                                            "userId": localStorage.getItem("currentuser")
+                                                        }, []).then((res) => { return (setInfo(res.data), setShowToast(true), timeout()) })
                                                     } else {
                                                         setInfo("Login required")
                                                     }
                                                 }}
-                                                    data-bs-toggle="modal" data-bs-target="#exampleModal1" data-bs-whatever="@mdo"
                                                 ><i className="fa-solid fa-heart text-danger"></i> </button>
                                             </div>
                                             <img src={e.itemImgUrl} className="card-img-top" alt={e.itemName} />
 
                                             <div className="card-body">
-                                                <h6 className="card-title" id={e.itemName}>{e.itemName}</h6>
-                                                <p className="card-text">{e.itemPrice}</p>
+                                                <h6 className="card-title text-truncate" id={e.itemName}>{e.itemName}</h6>
+                                                <p className="card-text text-truncate">{e.itemPrice}</p>
                                             </div>
                                             <Link to={'/view/' + e.itemId + "/" + e.itemName} className='btn btn-info'>View More...</Link>
                                         </div>
@@ -108,19 +112,17 @@ export default function MobileLog(props) {
                 </div>
             }
             <hr />
-            <div className="modal fade" id="exampleModal1" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div className="modal-dialog">
-                    <div className="modal-content">
-                        <div className="modal-body">
-                            <h4>{info}</h4>
-                        </div>
-                        <div className="modal-footer">
-                            <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+
+            {showToast && <div className="toast  fade show" role="alert" aria-live="assertive" aria-atomic="true">
+                <div className="d-flex">
+                    <div className="toast-body ">
+                        <p className='text-truncate'>{info}</p>
+                        <div className="mt-2 pt-2">
+                            <button type="button" className="btn btn-outline-light btn-sm" data-bs-dismiss="toast">Ok</button>
                         </div>
                     </div>
                 </div>
-            </div>
-
+            </div>}
 
         </div>
     )

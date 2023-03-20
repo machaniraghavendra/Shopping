@@ -2,8 +2,9 @@ package com.shopping.items.entity;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.Date;
 import java.util.List;
-import java.util.Map;
+import java.util.UUID;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -15,23 +16,19 @@ import javax.persistence.OneToMany;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 import lombok.Builder;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
 
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
-@ToString
 @Builder
 @Entity
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class OrderDetailsOfUser {
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer orderId;
+	private UUID uuidId;
 	private UserDetails userDetails;
 	@OneToMany(targetEntity=ItemEntity.class,  fetch=FetchType.EAGER)
 	private List<Object> itemEntity;
@@ -42,15 +39,16 @@ public class OrderDetailsOfUser {
 			,pincode=""
 			,deliveryAddress=""
 			,paymentType="";
-	private LocalDate orderedOn;
-	private LocalTime orderedAt;
+	private String orderedOn;
+	private String orderedAt;
 	private int orderQuantity;
 	
-	public OrderDetailsOfUser(Integer orderId, UserDetails userDetails, List< Object> itemEntity,
+	public OrderDetailsOfUser(Integer orderId, UUID uuidId, UserDetails userDetails, List<Object> itemEntity,
 			String firstName, String lastName, String emailAddress, String phoneNumber, String pincode,
-			String deliveryAddress, String paymentType, LocalDate orderedOn, LocalTime orderedAt, int orderQuantity) {
+			String deliveryAddress, String paymentType, String orderedOn, String orderedAt, int orderQuantity) {
 		super();
 		this.orderId = orderId;
+		this.uuidId = uuidId;
 		this.userDetails = userDetails;
 		this.itemEntity = itemEntity;
 		this.firstName = firstName;

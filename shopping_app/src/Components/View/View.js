@@ -4,6 +4,7 @@ import "../View/Viewcss.css";
 import img from "../imgbin_shopping-bag-shopping-cart-computer-icons-png.png"
 import Footer from '../Footer/Footer';
 import { Link } from 'react-router-dom';
+import ChatBot from '../ChatBot/ChatBot';
 
 export default function View(props) {
 
@@ -17,7 +18,7 @@ export default function View(props) {
 
     const [items, setItems] = useState([]);
 
-    const [showToast,setShowToast]=useState(false);
+    const [showToast, setShowToast] = useState(false);
 
     const timeout = () => {
         setTimeout(() => {
@@ -183,7 +184,7 @@ export default function View(props) {
 
             <div className='container'>
                 <h3 className='view p-2'>Similar Products </h3>
-                <div className="row row-cols-2 row-cols-md-4 g-4 align-content-center justify-content-center my-3" >
+                <div className="row row-card row-cols-2 row-cols-md-4 g-4 align-content-center justify-content-center my-3" >
                     {items.filter(a => {
                         return (
                             a.itemType == viewItem.map(a => { return (a.itemType) }))
@@ -194,7 +195,7 @@ export default function View(props) {
                     }).map((a) => {
                         return (
                             <div className="col" key={a.itemId}>
-                                <div className="card">
+                                <div className="card view-more-card">
                                     <div className='card-head text-end'>
                                         <button className='btn  m-2' onClick={() => {
                                             if (localStorage.getItem("Raghu") && localStorage.getItem("currentuser")) {
@@ -208,7 +209,7 @@ export default function View(props) {
                                                     "itemImgUrl": a.itemImgUrl,
                                                     "itemSpec": a.itemSpec,
                                                     "userId": localStorage.getItem("currentuser")
-                                                }, []).then((res) => { return (setInfo(res.data),setShowToast(true),timeout()) })
+                                                }, []).then((res) => { return (setInfo(res.data), setShowToast(true), timeout()) })
                                             } else {
                                                 setInfo("Login required")
                                             }
@@ -226,7 +227,7 @@ export default function View(props) {
                                                     "itemImgUrl": a.itemImgUrl,
                                                     "itemSpec": a.itemSpec,
                                                     "userId": localStorage.getItem("currentuser")
-                                                }, []).then((res) => { return (setInfo(res.data),setShowToast(true),timeout()) })
+                                                }, []).then((res) => { return (setInfo(res.data), setShowToast(true), timeout()) })
                                             } else {
                                                 setInfo("Login required !")
                                             }
@@ -234,37 +235,37 @@ export default function View(props) {
                                         ><i className="fa-solid fa-heart text-danger"></i> </button>
                                     </div>
                                     <img src={a.itemImgUrl} className="card-img-top " alt={a.itemName} />
-
                                     <div className="card-body">
-                                        <h5 className="card-title">{a.itemName}</h5>
-                                        <p className="card-text">{a.itemPrice}</p>
+                                        <h5 className="card-title text-truncate">{a.itemName}</h5>
+                                        <p className="card-text text-truncate">{a.itemPrice}</p>
                                         <p><b>{a.itemSpec}</b></p>
                                         <div className='text-center d-flex justify-content-center '>
-                                        <Link to={'/view/' + a.itemId + "/" + a.itemName} className='btn btn-info d-flex' 
-                                            onClick={() => {
-                                                return (
-                                                    window.onload(getItem())
-                                                )
-                                            }}>View More...</Link>
-                                            </div>
+                                            <Link to={'/view/' + a.itemId + "/" + a.itemName} className='btn btn-info d-flex'
+                                                onClick={() => {
+                                                    return (
+                                                        window.onload(getItem())
+                                                    )
+                                                }}>View More...</Link>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
+
                         )
                     })}
                 </div>
             </div>
 
             {showToast && <div className="toast  fade show" role="alert" aria-live="assertive" aria-atomic="true">
-                    <div className="d-flex">
-                        <div className="toast-body">
-                            {info}
-                            <div className="mt-2 pt-2">
-                                <button type="button" className="btn btn-outline-light btn-sm" data-bs-dismiss="toast">Ok</button>
-                            </div>
+                <div className="d-flex">
+                    <div className="toast-body">
+                        {info}
+                        <div className="mt-2 pt-2">
+                            <button type="button" className="btn btn-outline-light btn-sm" data-bs-dismiss="toast">Ok</button>
                         </div>
                     </div>
-                </div>}
+                </div>
+            </div>}
 
             <footer>
                 <Footer />
@@ -282,6 +283,7 @@ export default function View(props) {
                     </div>
                 </div>
             </div>
+            <ChatBot />
 
             {/* Logout popup */}
             <div className="modal fade " id="exampleModal3" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

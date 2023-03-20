@@ -8,7 +8,7 @@ import Mobiles from './Components/Mobiles/Mobiles';
 import Shirts from './Components/Shirts/Shirts';
 import Sports from './Components/Sports/Sports';
 import Trending from './Components/Trending/Trending';
-import MainpageAlog from "./Components/MainPage/MainnpageAlog"
+import MainpageAfterLog from "./Components/MainPage/MainnpageAfterLogin"
 import ErrorPage from "./Components/Error/ErrorPage";
 import Cartpage from "./Components/Cart/Cartpage";
 import Wishlist from "./Components/WishList/Wishlist";
@@ -36,7 +36,7 @@ function App() {
   currentuser();
 
   if (localStorage.getItem("Raghu") && localStorage.getItem("currentuser") && what) {
-    
+
     return (
       <div className="App">
         <Router>
@@ -45,15 +45,15 @@ function App() {
             <Route path="/signup" element={<SignUp />} />
             <Route path="/cart" element={<Cartpage user={user} />} />
             <Route path="/wishlist" element={<Wishlist user={user} />} />
-            <Route path="/login/forgot/password" element={<ForgotPass  user={user}  />} />
+            <Route path="/login/forgot/password" element={<ForgotPass user={user} />} />
             <Route path="/view/*" element={<View user={user} />} />
-            <Route path="/purchase" element={<Buypage user={user}/>}/>
+            <Route path="/purchase" element={<Buypage user={user} />} />
             <Route path="/profile/settings" element={<Settings user={user} />} />
-            <Route path="/orders" element={<Orders user={user}/>}/>
-            <Route path="/orderdetails" element={<OrderDetails user={user}/>}/>
+            <Route path="/orders" element={<Orders user={user} />} />
+            <Route path="/orderdetails" element={<OrderDetails user={user} />} />
             <Route path="/mart" element={
               <>
-                <MainpageAlog user={user} />
+                <MainpageAfterLog user={user} />
                 <Trending />
                 <MobileLog />
                 <Sports />
@@ -61,16 +61,6 @@ function App() {
                 <Footer />
               </>
             } />
-            {/* <Route path="/" element={
-              <>
-                <MainPage />
-                <Trending />
-                <Mobiles />
-                <Sports />
-                <Shirts />
-                <Footer />
-              </>
-            } /> */}
             <Route path="/*" element={<ErrorPage />} />
           </Routes>
         </Router>
@@ -83,8 +73,8 @@ function App() {
         <Routes>
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<SignUp />} />
-          <Route path="/login/forgot/password" element={<ForgotPass  user={user} />} />
-          <Route path="/mart" element={<MainpageAlog user={user}/>} />
+          <Route path="/login/forgot/password" element={<ForgotPass user={user} />} />
+          <Route path="/mart" element={<MainpageAfterLog user={user} />} />
           <Route path="/" element={
             <>
               <MainPage />

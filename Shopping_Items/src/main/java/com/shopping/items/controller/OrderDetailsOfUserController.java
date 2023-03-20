@@ -1,8 +1,6 @@
 package com.shopping.items.controller;
 
 import java.util.List;
-import java.util.Map;
-import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
