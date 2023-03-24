@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 import "../Orders/Orders.css"
 import axios from "axios"
 import { Link, useNavigate } from "react-router-dom";
-import Footer from '../Footer/Footer';
 import img from "../imgbin_shopping-bag-shopping-cart-computer-icons-png.png"
 import ChatBot from '../ChatBot/ChatBot';
 
