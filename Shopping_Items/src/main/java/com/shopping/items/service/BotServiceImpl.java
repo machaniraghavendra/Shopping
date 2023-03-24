@@ -18,17 +18,17 @@ public class BotServiceImpl implements BotService{
 	private static final String HELLO="hello";
 	private static final String HOW_ARE_YOU="how are you";
 	private static final String HOW_ARE_YOU_RESPONSE="Yahh Thanks for asking ! I'm fine and i'm here to help with page links";
-	private static final String CART_PAGE="take me to cart page";
+	private static final String CART_PAGE="cart";
 	private static final String CART_PAGE_RESPONSE="Sure! Here is the link tap on it http://localhost:3000/cart";
-	private static final String ORDER_PAGE="take me to orders page";
+	private static final String ORDER_PAGE="orders";
 	private static final String ORDER_PAGE_RESPONSE="Sure! Here is the link tap on it http://localhost:3000/orders";
-	private static final String WISHLIST_PAGE="take me to wishlist page";
+	private static final String WISHLIST_PAGE="wishlist";
 	private static final String WISHLIST_PAGE_RESPONSE="Sure! Here is the link tap on it http://localhost:3000/wishlist";
-	private static final String SETTING_PAGE="take me to setting page";
+	private static final String SETTING_PAGE="setting";
 	private static final String SETTING_PAGE_RESPONSE="Sure! Here is the link tap on it http://localhost:3000/profile/settings";
 	private static final String ERROR_MSGE="Sorry I can't able to find with your query !";
 
-	static List<Bot> responses=new ArrayList<>();
+	private static List<Bot> responses=new ArrayList<>();
 	
 	@SuppressWarnings("deprecation")
 	@Override

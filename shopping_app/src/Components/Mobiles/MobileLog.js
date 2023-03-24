@@ -41,7 +41,7 @@ export default function MobileLog(props) {
 
     return (
         <div className='container-fluid '>
-            <h2 id='Mobiles' className=' dark  '>Mobiles <i className="fa-duotone fa-mobile" style={{ fontFamily: "fontAwesome" }}></i></h2>
+            <h2 id='Mobiles' className='dark'>Mobiles <i className="fa-duotone fa-mobile" style={{ fontFamily: "fontAwesome" }}></i></h2>
             {mobiles.length == [] || !mobiles.map(e => { e.itemType.toLowerCase().includes("Mobile".toLowerCase()) }) ?
                 <div className='container-fluid justify-content-center text-center'>
                     <h1>No Items Found !</h1>
@@ -70,7 +70,7 @@ export default function MobileLog(props) {
                                                             "userId": localStorage.getItem("currentuser")
                                                         }, []).then((res) => { return (setInfo(res.data), setShowToast(true), timeout()) })
                                                     } else {
-                                                        setInfo("Login required")
+                                                        return (setInfo("Login required !"), setShowToast(true), timeout())
                                                     }
                                                 }}
                                                 ><i className='fa-solid fa-cart-shopping text-info'></i></button>
@@ -88,7 +88,7 @@ export default function MobileLog(props) {
                                                             "userId": localStorage.getItem("currentuser")
                                                         }, []).then((res) => { return (setInfo(res.data), setShowToast(true), timeout()) })
                                                     } else {
-                                                        setInfo("Login required")
+                                                        return (setInfo("Login required !"), setShowToast(true), timeout())
                                                     }
                                                 }}
                                                 ><i className="fa-solid fa-heart text-danger"></i> </button>

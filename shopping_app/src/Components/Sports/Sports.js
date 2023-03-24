@@ -28,7 +28,7 @@ export default function Sports() {
 
   return (
     <div className='container-fluid'>
-      <h2 id='Sports' className=' dark text-light '>Sports  <i className="fa-thin fa-baseball" style={{ fontFamily: "fontAwesome" }}></i></h2>
+      <h2 id='Sports' className='dark'>Sports  <i className="fa-thin fa-baseball" style={{ fontFamily: "fontAwesome" }}></i></h2>
       {sports.length == [] || !sports.map(e => { e.itemType.toLowerCase().includes("Sports".toLowerCase()) }) ?
         <div className='container-fluid justify-content-center text-center'>
           <h1>No Items Found !</h1>
@@ -56,7 +56,7 @@ export default function Sports() {
                               "userId": localStorage.getItem("currentuser")
                             }, []).then((res) => { return (setInfo(res.data), setShowToast(true), timeout()) })
                           } else {
-                            setInfo("Login required !")
+                            return (setInfo("Login required !"), setShowToast(true), timeout())
                           }
                         }}
                           data-bs-toggle="modal" data-bs-target="#exampleModal2" data-bs-whatever="@mdo"
@@ -76,7 +76,7 @@ export default function Sports() {
                               "userId": localStorage.getItem("currentuser")
                             }, []).then((res) => { return (setInfo(res.data), setShowToast(true), timeout()) })
                           } else {
-                            setInfo("Login required !")
+                            return (setInfo("Login required !"), setShowToast(true), timeout())
                           }
                         }}
                           data-bs-toggle="modal" data-bs-target="#exampleModal2" data-bs-whatever="@mdo"
@@ -95,7 +95,7 @@ export default function Sports() {
             })
             }
           </div><br></br>
-          <a className='btn btn-info' href="login">View More Items....</a><br></br>
+          <Link className='btn btn-info' to={"/sports"}>View More Items....</Link><br></br>
           &nbsp;
         </div>
       }

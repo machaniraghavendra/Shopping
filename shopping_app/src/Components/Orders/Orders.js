@@ -84,8 +84,8 @@ export default function Orders(props) {
                     </div>
                 </header>
                 <div className='container my-4'>
+                <h2 className='align-items-center d-flex justify-content-center text-info'>Your Orders </h2>
                     <div className='row rounded-5  '>
-                        <h2 className='align-items-center d-flex justify-content-center text-info'>Your Orders </h2>
                         {orders.filter(a => a.userDetails.userEmail == user.userEmail).length == 0 ?
                             <div className='container w-100 h-100'>
                                 <div className='text-center card-color p-3 w-50'>

@@ -27,7 +27,7 @@ export default function Shirts() {
     }, [])
     return (
         <div className='container-fluid'>
-            <h2 id='Dresses' className=' dark text-light '>Dresses <i className="fa-duotone fa-shirt" style={{ fontFamily: "fontAwesome" }}></i></h2>
+            <h2 id='Dresses' className='dark'>Dresses <i className="fa-duotone fa-shirt" style={{ fontFamily: "fontAwesome" }}></i></h2>
 
             {shirt.length == [] || !shirt.map(e => { e.itemType.toLowerCase().includes("Dresses".toLowerCase()) }) ?
 
@@ -59,7 +59,7 @@ export default function Shirts() {
                                                                 "userId": localStorage.getItem("currentuser")
                                                             }, []).then((res) => { return (setInfo(res.data), setShowToast(true), timeout()) })
                                                         } else {
-                                                            setInfo("Login required !")
+                                                            return (setInfo("Login required !"), setShowToast(true), timeout())
                                                         }
 
                                                     }}
@@ -79,7 +79,7 @@ export default function Shirts() {
                                                                 "userId": localStorage.getItem("currentuser")
                                                             }, []).then((res) => { return (setInfo(res.data), setShowToast(true), timeout()) })
                                                         } else {
-                                                            setInfo("Login required !")
+                                                            return (setInfo("Login required !"), setShowToast(true), timeout())
                                                         }
                                                     }}
                                                         data-bs-toggle="modal" data-bs-target="#exampleModal4" data-bs-whatever="@mdo"
@@ -99,7 +99,7 @@ export default function Shirts() {
                             })
                             }
                         </div><br></br>
-                        <a className='btn btn-info' href="/mart">View More Men Dresses....</a><br></br>
+                        <Link className='btn btn-info' to={"/men-dresses"}>View More Men Dresses....</Link><br></br>
                         &nbsp;
                     </div>
                     <br ></br>
@@ -126,7 +126,7 @@ export default function Shirts() {
                                                                 "userId": localStorage.getItem("currentuser")
                                                             }, []).then((res) => { return (setInfo(res.data), setShowToast(true), timeout()) })
                                                         } else {
-                                                            setInfo("Login required !")
+                                                            return (setInfo("Login required !"), setShowToast(true), timeout())
                                                         }
                                                     }}
                                                     ><i className='fa-solid fa-cart-shopping text-info'></i></button>
@@ -144,7 +144,7 @@ export default function Shirts() {
                                                                 "userId": localStorage.getItem("currentuser")
                                                             }, []).then((res) => { return (setInfo(res.data), setShowToast(true), timeout()) })
                                                         } else {
-                                                            setInfo("Login required !")
+                                                            return (setInfo("Login required !"), setShowToast(true), timeout())
                                                         }
                                                     }}
                                                     ><i className="fa-solid fa-heart text-danger"></i> </button>
@@ -162,7 +162,7 @@ export default function Shirts() {
                             })
                             }
                         </div><br></br>
-                        <a className='btn btn-info' href="/mart">View More Women Dresses....</a><br></br>
+                        <Link className='btn btn-info' to={"/women-dresses"}>View More Women Dresses....</Link><br></br>
                         &nbsp;
                     </div>
                 </>

@@ -30,7 +30,7 @@ export default function Settings(props) {
                 document.getElementById("flexSwitchCheckChecked").checked = false
                 document.querySelector(".listss").classList.add("text-dark")
                 document.querySelector(".listss").classList.remove("text-light")
-            }, 1500);
+            }, 500);
         } else {
             document.getElementById("round1").classList.remove("round-light")
             document.getElementById("round").classList.add("round")
@@ -40,7 +40,7 @@ export default function Settings(props) {
                 document.getElementById("flexSwitchCheckChecked").checked = true
                 document.querySelector(".listss").classList.add("text-light")
                 document.querySelector(".listss").classList.remove("text-dark")
-            }, 1500);
+            }, 500);
         }
     }
 
@@ -71,6 +71,7 @@ export default function Settings(props) {
     const changenumber = () => {
         document.getElementById("updatenumber").innerHTML = "<a class='nameupdate btn btn-warning'>Update</a>"
     }
+    
     const viewchangename = () => {
         document.getElementById("name").classList.toggle("d-block")
         document.getElementById("changename").classList.toggle("bg-dark")
@@ -88,6 +89,7 @@ export default function Settings(props) {
         document.getElementById("changenumber").innerHTML == "Change" ? document.getElementById("changenumber").innerHTML = "Close" : document.getElementById("changenumber").innerHTML = "Change"
         document.getElementById("changename").innerHTML == "Close" && (document.getElementById("changename").innerHTML = "Change")
     }
+
     const validate = (user) => {
         const errors = {}
         const regexphone = /^[0-9]+$/;

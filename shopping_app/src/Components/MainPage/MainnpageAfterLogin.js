@@ -41,10 +41,10 @@ export default function MainPageAfterlogin(props) {
         let title = document.querySelector(".check .container-fluid h1");
         let title2 = document.querySelector(".check .container-fluid h2");
         let extraId = document.querySelector(".extraId");
-
         let scroll = document.querySelector(".scroll-up");
+
         if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 220) {
-            top.classNameList.add("fixed-top");
+            top.classList.add("fixed-top");
             title.innerHTML = ' <img src="https://media.istockphoto.com/vectors/shopping-bag-flat-icon-pixel-perfect-for-mobile-and-web-vector-id1145783156?k=20&m=1145783156&s=612x612&w=0&h=RJdFiHDeaQJt3KbyIfJmWS12iQrD63DUCMWPrFLumwk=" alt="" width="35" height="35" className="d-inline-block align-text-top" />&nbsp;Shopping Mart'
             title2.innerHTML = ""
             //     extraId.innerHTML = `<button type="button" className="btn btn-none dropdown-toggle" data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">
@@ -52,12 +52,12 @@ export default function MainPageAfterlogin(props) {
             // </button>;`
         }
         if (document.body.scrollTop > 600 || document.documentElement.scrollTop > 620) {
-            scroll.style.display = "block";
-            title2.classNameList.remove("d-none")
+                scroll.style.display = "block";
+            title2.classList.remove("d-none")
         }
         else {
-            top.classNameList.remove("fixed-top");
-            scroll.style.display = "none";
+            top.classList.remove("fixed-top");
+                scroll.style.display = "none";
             title.innerHTML = "Contents";
         }
     }

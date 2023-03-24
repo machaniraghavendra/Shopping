@@ -9,9 +9,17 @@ export default function Mobiles() {
 
     const [info, setInfo] = useState("");
 
+    const [showToast, setShowToast] = useState(false);
+
     const fetch = () => {
         axios.get("http://localhost:8083/items/")
             .then((res) => { return (setMobiles(res.data)) })
+    }
+
+    const timeout = () => {
+        setTimeout(() => {
+            setShowToast(false);
+        }, 4000);
     }
 
     useEffect(() => {
@@ -46,14 +54,12 @@ export default function Mobiles() {
                                                             "itemDimensions": e.itemDimensions,
                                                             "itemImgUrl": e.itemImgUrl,
                                                             "itemSpec": e.itemSpec,
-                                                            "userId":localStorage.getItem("currentuser")
+                                                            "userId": localStorage.getItem("currentuser")
                                                         }, []).then((res) => { return (setInfo(res.data)) })
                                                     } else {
-                                                        setInfo("Login required !")
+                                                        return (setInfo("Login required !"), setShowToast(true), timeout())
                                                     }
                                                 }}
-                                                    data-bs-toggle="modal" data-bs-target="#exampleModal1" data-bs-whatever="@mdo"
-
                                                 ><i className='fa-solid fa-cart-shopping text-info'></i></button>
                                                 <button className='btn ' onClick={() => {
                                                     if (localStorage.getItem("Raghu") && localStorage.getItem("currentuser")) {
@@ -66,13 +72,12 @@ export default function Mobiles() {
                                                             "itemDimensions": e.itemDimensions,
                                                             "itemImgUrl": e.itemImgUrl,
                                                             "itemSpec": e.itemSpec,
-                                                            "userId":localStorage.getItem("currentuser")
+                                                            "userId": localStorage.getItem("currentuser")
                                                         }, []).then((res) => { return (setInfo(res.data)) })
                                                     } else {
-                                                        setInfo("Login required !")
+                                                        return (setInfo("Login required !"), setShowToast(true), timeout())
                                                     }
                                                 }}
-                                                    data-bs-toggle="modal" data-bs-target="#exampleModal1" data-bs-whatever="@mdo"
                                                 ><i className="fa-solid fa-heart text-danger"></i> </button>
                                             </div>
                                             <img src={e.itemImgUrl} className="card-img-top" alt={e.itemName} />
@@ -82,7 +87,6 @@ export default function Mobiles() {
                                                 <p className="card-text">{e.itemPrice}</p>
                                             </div>
                                             <Link to={'/view/' + e.itemId + "/" + e.itemName} className='btn btn-info'>View More...</Link>
-
                                         </div>
                                     </div>
                                 )
@@ -95,18 +99,16 @@ export default function Mobiles() {
                 </div>
             }
             <hr />
-            <div className="modal fade" id="exampleModal1" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div className="modal-dialog">
-                    <div className="modal-content">
-                        <div className="modal-body">
-                            <h4>{info}</h4>
-                        </div>
-                        <div className="modal-footer">
-                            <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            {showToast && <div className="toast  fade show" role="alert" aria-live="assertive" aria-atomic="true">
+                <div className="d-flex">
+                    <div className="toast-body ">
+                        <p className='text-truncate'>{info}</p>
+                        <div className="mt-2 pt-2">
+                            <button type="button" className="btn btn-outline-light btn-sm" data-bs-dismiss="toast">Ok</button>
                         </div>
                     </div>
                 </div>
-            </div>
+            </div>}
         </div>
     )
 }

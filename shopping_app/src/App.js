@@ -23,19 +23,19 @@ import Orders from "./Components/Orders/Orders";
 import OrderDetails from "./Components/Orders/OrderDetails";
 
 function App() {
-  let user = localStorage.getItem("currentuser")
+  let user = localStorage.getItem("currentuser");
 
-  const [what, setWhat] = useState(false);
+  const [userPresent, setUserPresent] = useState(false);
 
   const currentuser = () => {
-    axios.get("http://localhost:8080/user/id/" + user).then(res => {
-      return (setWhat(true))
-    }).catch(() => { setWhat(false) })
+    axios.get("http://localhost:8080/user/id/" + user).then(() => {
+      return (setUserPresent(true))
+    }).catch(() => { setUserPresent(false) })
   }
 
   currentuser();
 
-  if (localStorage.getItem("Raghu") && localStorage.getItem("currentuser") && what) {
+  if (localStorage.getItem("Raghu") && localStorage.getItem("currentuser") && userPresent) {
 
     return (
       <div className="App">
