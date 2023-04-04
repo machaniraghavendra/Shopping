@@ -23,30 +23,30 @@ import io.swagger.annotations.Api;
 @RestController
 @CrossOrigin(origins = "http://localhost:3000")
 @RequestMapping("/orders/")
-@Api(tags = "Order Details",description = "Gives all order data")
+@Api(tags = "Order Details", description = "Gives all order data")
 public class OrderDetailsOfUserController {
 
 	@Autowired
 	OrderDetailsServImpl orderDetailsServImpl;
-	
+
 	@PostMapping("/{orderId}")
-	public ResponseEntity<List<Object>> saveOrder(@RequestBody OrderDetailsOfUser orderDetailsOfUser
-			,@PathVariable int orderId) throws ItemNotFoundException, OrderWithSameItemExistsException{
+	public ResponseEntity<List<Object>> saveOrder(@RequestBody OrderDetailsOfUser orderDetailsOfUser,
+			@PathVariable int orderId) throws ItemNotFoundException, OrderWithSameItemExistsException {
 		return ResponseEntity.ok(orderDetailsServImpl.getUserAndItem(orderId, orderDetailsOfUser));
 	}
-	
+
 	@GetMapping("/all")
-	public ResponseEntity<List<OrderDetailsOfUser>> getAllOrders(){
+	public ResponseEntity<List<OrderDetailsOfUser>> getAllOrders() {
 		return ResponseEntity.ok(orderDetailsServImpl.getAllOrders());
 	}
-	
+
 	@GetMapping("/")
-	public ResponseEntity<List<Object>> getOrder() throws OrderNotFoundException{
+	public ResponseEntity<List<Object>> getOrder() throws OrderNotFoundException {
 		return ResponseEntity.ok(orderDetailsServImpl.getOrder());
 	}
-	
+
 	@GetMapping("/{orderId}")
-	public ResponseEntity<List<Object>> getOrderDetailsOfUser(@PathVariable int orderId) throws OrderNotFoundException{
+	public ResponseEntity<List<Object>> getOrderDetailsOfUser(@PathVariable int orderId) throws OrderNotFoundException {
 		return ResponseEntity.ok(orderDetailsServImpl.getOrderDetailsOfUser(orderId));
 	}
 }

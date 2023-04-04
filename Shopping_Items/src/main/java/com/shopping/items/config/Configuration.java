@@ -16,25 +16,20 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableSwagger2
 @EnableWebMvc
 public class Configuration {
-	
+
 	@Bean
 	public Docket docket() {
-		return new Docket(DocumentationType.SWAGGER_2).apiInfo(apiInfo()).select().
-				paths(PathSelectors.any())
-				.apis(RequestHandlerSelectors.basePackage("com.shopping"))
-				.build();
+		return new Docket(DocumentationType.SWAGGER_2).apiInfo(apiInfo()).select().paths(PathSelectors.any())
+				.apis(RequestHandlerSelectors.basePackage("com.shopping")).build();
 	}
-	
+
 	@Bean
 	public InternalResourceViewResolver defaultViewResolver() {
 		return new InternalResourceViewResolver();
-	}	
-	
+	}
+
 	private ApiInfo apiInfo() {
-		return new ApiInfoBuilder()
-				.title("Shopping Application")
-				.version("1.0.0")
-				.description("Latest products available and for UI click here http://localhost:3000/")
-				.build();
+		return new ApiInfoBuilder().title("Shopping Application").version("1.0.0")
+				.description("Latest products available and for UI click here http://localhost:3000/").build();
 	}
 }

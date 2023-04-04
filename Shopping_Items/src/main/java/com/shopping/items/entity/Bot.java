@@ -14,6 +14,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 @Builder
+@AllArgsConstructor
 public class Bot {
 	private UUID id;
 	private String userMessage;
@@ -21,16 +22,5 @@ public class Bot {
 	private String userMessagedAt;
 	private String botReturnedAt;
 	private UserDetails userDetails;
-	
-	public Bot(UUID id, String userMessage, String botMessage, String userMessagedAt, String botReturnedAt,
-			UserDetails userDetails) {
-		super();
-		this.id = id;
-		this.userMessage = userMessage;
-		this.botMessage = botMessage;
-		this.userMessagedAt = userMessagedAt;
-		this.botReturnedAt = botReturnedAt;
-		this.userDetails = userDetails;
-	}
-	
+
 }

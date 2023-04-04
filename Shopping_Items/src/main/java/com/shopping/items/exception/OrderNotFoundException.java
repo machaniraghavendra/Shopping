@@ -23,10 +23,11 @@ public class OrderNotFoundException extends Exception {
 
 	public OrderNotFoundException(String message) {
 		super(message);
-		this.statusCode=HttpStatus.INTERNAL_SERVER_ERROR;
+		this.statusCode = HttpStatus.INTERNAL_SERVER_ERROR;
 	}
-	public OrderNotFoundException(String message,HttpStatus statuscode) {
+
+	public OrderNotFoundException(String message, HttpStatus statuscode) {
 		super(message);
-		this.statusCode=statuscode;
+		this.statusCode = statuscode;
 	}
 }

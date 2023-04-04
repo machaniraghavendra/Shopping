@@ -22,17 +22,17 @@ public class BotController {
 
 	@Autowired
 	BotServiceImpl botServiceImpl;
-	
+
 	@PostMapping("/")
-	public void getResponse(@RequestBody Bot bot){
+	public void getResponse(@RequestBody Bot bot) {
 		botServiceImpl.queryReponse(bot);
 	}
-	
+
 	@GetMapping("/")
-	public ResponseEntity<List<Bot>> viewAllResponse(){
+	public ResponseEntity<List<Bot>> viewAllResponse() {
 		return ResponseEntity.ok(botServiceImpl.viewAllResponse());
 	}
-	
+
 	@PostMapping("/{email}")
 	public void listClear(@PathVariable String email) {
 		botServiceImpl.listClear(email);

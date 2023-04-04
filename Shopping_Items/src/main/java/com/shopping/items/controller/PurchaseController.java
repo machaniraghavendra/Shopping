@@ -25,12 +25,12 @@ public class PurchaseController {
 	PurchaseImpl purchaseImpl;
 
 	@GetMapping("/{itemId}")
-	public ResponseEntity<List<Object>> purchaseItem(@PathVariable int itemId) throws ItemNotFoundException{
+	public ResponseEntity<List<Object>> purchaseItem(@PathVariable int itemId) throws ItemNotFoundException {
 		return ResponseEntity.ok(purchaseImpl.buyNow(itemId));
 	}
-	
+
 	@GetMapping("/")
-	public ResponseEntity<List<Object>> getItem(){
+	public ResponseEntity<List<Object>> getItem() {
 		return ResponseEntity.ok(purchaseImpl.getItem());
 	}
 }

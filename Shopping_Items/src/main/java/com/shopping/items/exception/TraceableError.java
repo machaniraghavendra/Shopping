@@ -11,7 +11,7 @@ import lombok.Setter;
 @Setter
 @Getter
 @NoArgsConstructor
-public class TraceableError implements Serializable{
+public class TraceableError implements Serializable {
 
 	private static final long serialVersionUID = 12345L;
 
@@ -34,5 +34,5 @@ public class TraceableError implements Serializable{
 		this.exceptionType = exceptionType;
 		this.errorMessage = errorMessage;
 	}
-	
+
 }

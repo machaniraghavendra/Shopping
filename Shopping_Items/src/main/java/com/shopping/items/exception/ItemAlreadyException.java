@@ -27,8 +27,7 @@ public class ItemAlreadyException extends Exception {
 
 	public ItemAlreadyException(String message) {
 		super(message);
-		this.statusCode=HttpStatus.INTERNAL_SERVER_ERROR;
+		this.statusCode = HttpStatus.INTERNAL_SERVER_ERROR;
 	}
-	
 
 }

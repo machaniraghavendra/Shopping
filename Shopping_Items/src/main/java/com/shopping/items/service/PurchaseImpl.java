@@ -15,7 +15,7 @@ public class PurchaseImpl implements Purchase{
 	List<Object> value;
 	
 	@Override
-	public List<Object>  buyNow(int itemId) throws ItemNotFoundException {
+	public List<Object> buyNow(int itemId) throws ItemNotFoundException {
 			  value=itemServImpl.find(itemId);
 			  return value;
 	}

@@ -19,10 +19,11 @@ public class ItemNotFoundException extends Exception {
 
 	public ItemNotFoundException(String message) {
 		super(message);
-		this.statusCode=HttpStatus.INTERNAL_SERVER_ERROR;
+		this.statusCode = HttpStatus.INTERNAL_SERVER_ERROR;
 	}
-	public ItemNotFoundException(String message,HttpStatus statuscode) {
+
+	public ItemNotFoundException(String message, HttpStatus statuscode) {
 		super(message);
-		this.statusCode=statuscode;
+		this.statusCode = statuscode;
 	}
 }
