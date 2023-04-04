@@ -194,7 +194,7 @@ export default function View(props) {
                         )
                     }).map((a) => {
                         return (
-                            <div className="col" key={a.itemId}>
+                            <div className="col" key={a.itemId} style={{cursor:"grab",overflowX:"scroll",overflowX:"visible"}}>
                                 <div className="card view-more-card">
                                     <div className='card-head text-end'>
                                         <button className='btn  m-2' onClick={() => {

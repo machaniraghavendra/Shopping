@@ -34,10 +34,10 @@
 
 .view-more-card {
     margin-bottom: 2rem;
-    border: 0;
     flex-basis: 33.333%;
     flex-grow: 0;
     flex-shrink: 0;
+    overflow-x: visible;
 }
 
 .card-img-top {
