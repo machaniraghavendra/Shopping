@@ -57,9 +57,4 @@ public class OrderDetailsOfUserController {
 		return ResponseEntity.ok(orderDetailsServImpl.getOrderDetailsOfUser(orderId));
 	}
 	
-	@GetMapping("/uuid/{id}")
-	public ResponseEntity<OrderDetailsOfUser> getOrderDetailsWithUUID(@PathVariable UUID id) throws OrderNotFoundException {
-		return ResponseEntity.ok(orderDetailsServImpl.getOrderDetailsWithUUID(id));
-	}
-	
 }

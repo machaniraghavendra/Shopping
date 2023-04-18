@@ -138,9 +138,4 @@ public class OrderDetailsServImpl implements OrderDetailsServ {
 				: LocalTime.of(date.getHour(), date.getMinute(), date.getSecond())
 						.format(DateTimeFormatter.ofPattern("HH:mm:ss"));
 	}
-
-	public OrderDetailsOfUser getOrderDetailsWithUUID(UUID id) {
-		return orderRepo.findAll().stream().filter(a -> a.getUuidId().equals(id)).findFirst().get();
-	}
-
 }
