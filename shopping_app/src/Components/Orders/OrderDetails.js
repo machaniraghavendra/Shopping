@@ -12,8 +12,22 @@ export default function OrderDetails(props) {
 
     const [order, setOrder] = useState([]);
 
+    const [showToast, setShowToast] = useState(false);
+
+    const [orderId, setOrderId] = useState("");
+
+    const nav = useNavigate();
+
     const fetchOrders = () => {
         axios.get("http://localhost:8083/orders/").then((res) => { setOrder(res.data) });
+    }
+
+    const showCopyMessage = (e) => {
+        navigator.clipboard.writeText(e);
+        document.getElementById("showMessage").innerHTML = "Copied to clipboard"
+        setTimeout(() => {
+            document.getElementById("showMessage").innerHTML = ""
+        }, 2000)
     }
 
     useEffect(() => {
@@ -84,30 +98,53 @@ export default function OrderDetails(props) {
                         {order.map(a => {
                             return (
                                 <div key={a.orderId}>
-                                    <small className='text-muted'>Order id : {a.uuidId}</small>
+                                    <small className='text-muted'>Order id : {a.uuidId} &nbsp;<i class="bi bi-clipboard btn btn-sm btn-outline-info" onClick={() => {
+                                        showCopyMessage(a.uuidId)
+                                    }}></i>&nbsp;<span id='showMessage' className='text-success'></span></small>
 
                                     <div className='row'>
                                         <div className='col-12 col-md-8'>   <hr></hr>
-                                            <h4>{a.itemEntity.map(e => { return (e.itemName) })}</h4>
+                                            <div className='row'>
+                                                <h4 className='col-6'>{a.itemEntity.map(e => { return (e.itemName) })} </h4>
+                                                {a.orderStatus == "success" && <h6 className='text-end col-6 text-success'>Placed</h6>}
+                                                {a.orderStatus == "dispatched" && <h6 className='text-end col-6 text-primary'>Dispatched</h6>}
+                                                {a.orderStatus == "near by hub" && <h6 className='text-end col-6 text-info'>Near by Hub</h6>}
+                                                {a.orderStatus == "cancelled" && <h6 className='text-end col-6 text-danger'>Cancelled</h6>}
+                                            </div>
                                             <p className='p-3'><b> Price : {a.itemEntity.map(e => { return (e.itemPrice) })}</b></p>
                                             <h6>Order Details</h6>
                                             <div className='px-3'>
                                                 <p>Ordered on  {a.orderedOn}</p>
                                                 <p>At the time of {a.orderedAt} sec</p>
+                                                {a.orderStatus == "cancelled" ? <p className='text-decoration-line-through'>Expected delivery on {a.deliveryDate}</p> :
+                                                    <p>Expected delivery on {a.deliveryDate}</p>}
                                             </div>
                                             <h6>Delivery Details</h6>
-                                            <div className='px-3'>
-                                                <p>Name : {a.firstName + " " + a.lastName}</p>
-                                                <p>Email address : {a.emailAddress}</p>
-                                                <p>Mobile Number : {a.phoneNumber}</p>
-                                                <p>Address : {a.deliveryAddress}</p>
-                                                <p>Pincode : {a.pincode}</p>
-                                                <p>Order Quantity : {a.orderQuantity}</p>
-                                                <p>Payment type : {a.paymentType}</p>
+                                            <div class="container text-center g-3 ">
+                                                <div class="row">
+                                                    <div class="col"> <p><b>Name</b> : {a.firstName + " " + a.lastName}</p>  </div>
+                                                    {a.emailAddress != "" && <div class="col">  <p><b>Email address</b> : {a.emailAddress}</p></div>}
+                                                    <div class="col">  <p><b>Mobile Number</b> : {a.phoneNumber}</p></div>
+                                                </div>
+                                                <div className='row'>
+                                                    {a.pincode != null && <div class="col"> <p><b>Pincode</b> : {a.pincode}</p></div>}
+                                                    {a.orderQuantity != null && <div class="col">  <p><b>Quantity</b> : {a.orderQuantity}</p></div>}
+                                                    {a.paymentType != null && <div class="col"> <p><b>Payment type</b> : {a.paymentType.toUpperCase()}</p></div>}
+                                                </div>
                                             </div>
+                                            {a.orderStatus != "cancelled" && a.orderStatus != "near by hub" && <>
+                                                <hr></hr>
+                                                <div className='text-center'>
+                                                    <p>Do you want to cancel this order (You can cancel this before reaching to near by hub)? <button className='btn btn-danger btn-sm' onClick={() => {
+                                                        setOrderId(a.orderId);
+                                                        setShowToast(true);
+                                                    }}>Cancel Order</button></p>
+                                                </div>
+                                            </>
+                                            }
                                             <hr></hr>
                                         </div>
-                                        <div className='col-4'>
+                                        <div className='col-4 text-end w-25 h-25'>
                                             <img src={a.itemEntity.map(e => { return (e.itemImgUrl) })} className="img-fluid rounded-start d-lg-block d-none float-end " alt={a.itemEntity.map(e => { return (e.itemName) })} />
                                         </div>
                                     </div>
@@ -116,6 +153,29 @@ export default function OrderDetails(props) {
                         })}
                     </div>
                 </div>
+
+                <Footer />
+
+                {showToast && <div className="toast  fade show" role="alert" aria-live="assertive" aria-atomic="true">
+                    <div className="d-flex">
+                        <div className="toast-body">
+                            Due you want to cancel this order?
+                            <div className="mt-2 pt-2">
+                                <button type="button" className="btn btn-outline-light btn-sm" data-bs-dismiss="toast"
+                                    onClick={() => {
+                                        axios.put("http://localhost:8083/orders/updateOrder/" + orderId + "/" + "cancelled").then(() => {
+                                            nav("/orders")
+                                        });
+                                        setShowToast(false);
+                                    }}
+                                >Yes</button>&nbsp;&nbsp;
+                                <button type="button" className="btn btn-outline-light btn-sm" data-bs-dismiss="toast" onClick={() => {
+                                    setShowToast(false)
+                                }}>No</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>}
 
                 {/* Logout popup */}
                 <div className="modal fade " id="exampleModal3" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -142,9 +202,9 @@ export default function OrderDetails(props) {
                     </div>
                 </div>
             </div>
-            
+
             <ChatBot />
-            
+
         </div>
     )
 }

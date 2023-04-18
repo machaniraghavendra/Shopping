@@ -1,6 +1,7 @@
 package com.shopping.items.controller;
 
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -8,6 +9,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -35,6 +37,11 @@ public class OrderDetailsOfUserController {
 		return ResponseEntity.ok(orderDetailsServImpl.getUserAndItem(orderId, orderDetailsOfUser));
 	}
 
+	@PutMapping("/updateOrder/{orderId}/{status}")
+	public ResponseEntity<List<Object>> updateOrder(@PathVariable int orderId, @PathVariable String status) throws OrderNotFoundException {
+		return ResponseEntity.ok(orderDetailsServImpl.updateOrder(orderId,status));
+	}
+
 	@GetMapping("/all")
 	public ResponseEntity<List<OrderDetailsOfUser>> getAllOrders() {
 		return ResponseEntity.ok(orderDetailsServImpl.getAllOrders());
@@ -49,4 +56,10 @@ public class OrderDetailsOfUserController {
 	public ResponseEntity<List<Object>> getOrderDetailsOfUser(@PathVariable int orderId) throws OrderNotFoundException {
 		return ResponseEntity.ok(orderDetailsServImpl.getOrderDetailsOfUser(orderId));
 	}
+	
+	@GetMapping("/uuid/{id}")
+	public ResponseEntity<OrderDetailsOfUser> getOrderDetailsWithUUID(@PathVariable UUID id) throws OrderNotFoundException {
+		return ResponseEntity.ok(orderDetailsServImpl.getOrderDetailsWithUUID(id));
+	}
+	
 }

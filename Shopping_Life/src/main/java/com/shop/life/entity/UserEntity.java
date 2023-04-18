@@ -1,27 +1,23 @@
 package com.shop.life.entity;
 
 import java.io.Serializable;
-import java.util.List;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="UserStory")
-public class UserEntity implements Serializable{
+@Table(name = "UserStory")
+public class UserEntity implements Serializable {
 	private static final long serialVersionUID = 12345L;
-	
+
 	@Id
 	private String UserEmail;
 	private String UserName;
 	private String UserPassword;
 	private String MobileNumber;
-	  
-	
+
 	public UserEntity() {
-	
+		super();
 	}
 
 	public UserEntity(String userName, String userEmail, String userPassword, String mobileNumber) {
@@ -69,5 +65,5 @@ public class UserEntity implements Serializable{
 		return "UserEntity [UserName=" + UserName + ", UserEmail=" + UserEmail + ", UserPassword=" + UserPassword
 				+ ", MobileNumber=" + MobileNumber + "]";
 	}
-	
+
 }

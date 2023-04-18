@@ -21,10 +21,17 @@ import com.shopping.items.service.BotServiceImpl;
 public class BotController {
 
 	@Autowired
-	BotServiceImpl botServiceImpl;
+	private BotServiceImpl botServiceImpl;
 
 	@PostMapping("/")
 	public void getResponse(@RequestBody Bot bot) {
+		String messageArray[]=bot.getUserMessage().split(" ");
+		for (int i = 0; i < messageArray.length; i++) {
+			if (messageArray[i].length()>20) {
+				bot.setUserMessage(messageArray[i]);
+				break;
+			}
+		}
 		botServiceImpl.queryReponse(bot);
 	}
 
@@ -37,4 +44,5 @@ public class BotController {
 	public void listClear(@PathVariable String email) {
 		botServiceImpl.listClear(email);
 	}
+	
 }

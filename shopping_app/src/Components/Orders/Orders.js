@@ -83,7 +83,7 @@ export default function Orders(props) {
                     </div>
                 </header>
                 <div className='container my-4'>
-                <h2 className='align-items-center d-flex justify-content-center text-info'>Your Orders </h2>
+                    <h2 className='align-items-center d-flex justify-content-center text-info'>Your Orders </h2>
                     <div className='row rounded-5  '>
                         {orders.filter(a => a.userDetails.userEmail == user.userEmail).length == 0 ?
                             <div className='container w-100 h-100'>
@@ -101,13 +101,22 @@ export default function Orders(props) {
                                     <div className='col-lg-6 ' key={item.orderId}>
                                         <div className="card mb-3 orderCard card-color" style={{ height: "100%" }} >
                                             <div className="row g-0" >
-                                                <div className="col-md-4 d-none d-lg-block">
-                                                    <img src={item.itemEntity.map(a => { return (a.itemImgUrl) })} className="img-fluid rounded-start d-lg-block d-none " alt={item.itemEntity.map(a => { return (a.itemName) })} />
+                                                <div className="col-md-4 d-none d-lg-flex justify-content-center">
+                                                    <img src={item.itemEntity.map(a => { return (a.itemImgUrl) })} className="img-fluid rounded-start d-lg-block d-none h-75 w-75" alt={item.itemEntity.map(a => { return (a.itemName) })} />
                                                 </div>
-                                                <div className="col-md-8">
+                                                <div className="col-md-8 ">
                                                     <div className="card-body">
-                                                        <Link to={'/orderdetails'} className="link-info  stretched-link" onClick={() => { viewOrder(item.orderId) }}></Link><h5 className="card-title">{item.itemEntity.map(a => { return (a.itemName) })} </h5>
-                                                        <p className="card-text"><small className="text-muted">Ordered on {item.orderedOn}</small></p>
+                                                        <Link to={'/orderdetails'} className="link-info  stretched-link" onClick={() => { viewOrder(item.orderId) }}></Link>
+                                                        <div className='row'>
+                                                            <h5 className="card-title float-start col-6 text-truncate">{item.itemEntity.map(a => { return (a.itemName) })} </h5>
+                                                            {item.orderStatus == "success" && <p className='col-3 text-center text-success'><b>Placed</b></p>}
+                                                            {item.orderStatus == "dispatched" && <p className='col-3 text-center text-primary'><b>Dispatched</b></p>}
+                                                            {item.orderStatus == "near by hub" && <p className='col-3 text-center text-info'><b>Near by Hub</b></p>}
+                                                            {item.orderStatus == "cancelled" && <p className='col-3 text-center text-danger'><b>Cancelled</b></p>}
+                                                            <p className="card-title float-end col-3 text-end"><b>{item.itemEntity.map(a => { return (a.itemPrice) })}</b></p>
+                                                        </div>
+                                                        <div className='row py-2'> <p className="card-text">Ordered on {item.orderedOn}</p></div>
+                                                        <div className='row'> <p className="card-text">Expected Delivery on {item.deliveryDate}</p></div>
                                                     </div>
                                                 </div>
                                             </div>

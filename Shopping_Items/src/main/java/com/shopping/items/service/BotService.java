@@ -2,6 +2,6 @@ package com.shopping.items.service;
 
 import com.shopping.items.entity.Bot;
 
-public interface  BotService {
+public interface BotService {
 	void queryReponse(Bot incomeBot);
 }

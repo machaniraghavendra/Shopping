@@ -105,13 +105,20 @@ class ChatBot extends Component {
                                                 <div id="botOutput" className="my-1 col-8 bg-info ">
                                                     <div className=" align-self-start">
                                                         {a.botMessage.includes("http") ?
-                                                            <>
-                                                                <span>{a.botMessage.substr(0,a.botMessage.indexOf("http")).trim()}</span>&nbsp;
-                                                                <a href={a.botMessage.substr(a.botMessage.indexOf("http"))} className="btn btn-sm btn-primary">
-                                                                    {a.botMessage.substr(a.botMessage.indexOf("3000/") + 5).toUpperCase()}
-                                                                </a>
-                                                            </>
-                                                            : a.botMessage}</div>
+                                                            a.botMessage.length > 70 ? <>
+                                                                <div className="justify-content-center d-flex">
+                                                                    <img className="w-50 h-50 " src={a.botMessage.substr(a.botMessage.indexOf("http"))} /><br></br>
+                                                                </div>
+                                                                {a.botMessage.substr(0, a.botMessage.indexOf("http")).trim()}
+                                                            </> :
+                                                                <>
+                                                                    <span>{a.botMessage.substr(0, a.botMessage.indexOf("http")).trim()}</span>&nbsp;
+                                                                    <a href={a.botMessage.substr(a.botMessage.indexOf("http"))} className="btn btn-sm btn-primary">
+                                                                        {a.botMessage.substr(a.botMessage.indexOf("3000/") + 5).toUpperCase()}
+                                                                    </a>
+                                                                </>
+                                                            : a.botMessage
+                                                        }</div>
                                                     <div className=" align-self-end float-end text-muted fst-italic fw-bold" style={{ fontSize: "12px" }}>{a.botReturnedAt}</div>
                                                 </div>
                                                 <div className="col-4"></div>

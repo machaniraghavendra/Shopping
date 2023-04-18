@@ -36,5 +36,6 @@ public class OrderDetailsOfUser {
 	private String orderedOn;
 	private String orderedAt;
 	private int orderQuantity;
-
+	private String deliveryDate;
+	private String orderStatus;
 }
