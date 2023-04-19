@@ -134,7 +134,7 @@ export default function Buypage(props) {
                 cards.classList.remove("text-light")
             }
         }
-        axios.get("http://localhost:8080/user/" + props.user).then(a => { return (setUser(a.data)) })
+        axios.get("http://localhost:8083/user/" + props.user).then(a => { return (setUser(a.data)) })
         getItem();
     }, [])
 

@@ -3,6 +3,8 @@ package com.shopping.items.entity;
 import java.io.Serializable;
 import javax.persistence.Table;
 
+import com.shop.life.entity.UserEntity;
+
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,19 +17,8 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 @Builder
-public class UserDetails implements Serializable {
+public class UserDetails extends UserEntity implements Serializable {
 
 	private static final long serialVersionUID = 6139227758979754608L;
-
-	private String UserEmail;
-	private String UserName;
-	private String MobileNumber;
-
-	public UserDetails(String userEmail, String userName, String mobileNumber) {
-		super();
-		UserEmail = userEmail;
-		UserName = userName;
-		MobileNumber = mobileNumber;
-	}
 
 }

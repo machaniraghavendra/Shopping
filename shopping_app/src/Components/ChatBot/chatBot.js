@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 class ChatBot extends Component {
     constructor(props) {
         super(props);
-        axios.get("http://localhost:8080/user/" + localStorage.getItem("currentuser")).then(a => { return (this.setUser(a.data)) })
+        axios.get("http://localhost:8083/user/" + localStorage.getItem("currentuser")).then(a => { return (this.setUser(a.data)) })
         this.getResponses()
         this.state = {
             showBot: false,
@@ -65,7 +65,8 @@ class ChatBot extends Component {
     render() {
         return (
             <div className="text-white ">
-                {this.state.showBot ? <div className="chatPop " >
+                {this.state.showBot ? 
+                <div className="chatPop" >
                     <div className="card" style={{ backgroundColor: "lightblue" }}>
                         <div className="card-head bg-dark" >
                             <div className="closeBot row m-1 justify-content-center">
@@ -172,8 +173,6 @@ class ChatBot extends Component {
                     }}>
                         <i className="bi bi-chat-left-text-fill text-light bg-black bot-icon"></i>
                     </div>}
-
-
             </div>
         )
     }

@@ -28,7 +28,7 @@ function App() {
   const [userPresent, setUserPresent] = useState(false);
 
   const currentuser = () => {
-    axios.get("http://localhost:8080/user/id/" + user).then(() => {
+    axios.get("http://localhost:8083/user/id/" + user).then(() => {
       return (setUserPresent(true))
     }).catch(() => { setUserPresent(false) })
   }

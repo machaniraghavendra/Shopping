@@ -47,7 +47,7 @@ export default function Shirts() {
                                                 <div className='card-header justify-content-end text-end'>
                                                     <button className='btn  m-2' onClick={() => {
                                                         if (localStorage.getItem("Raghu") && localStorage.getItem("currentuser")) {
-                                                            axios.post("http://localhost:8081/cart/", {
+                                                            axios.post("http://localhost:8083/cart/", {
                                                                 "itemId": e.itemId,
                                                                 "itemName": e.itemName,
                                                                 "itemDesc": e.itemDesc,
@@ -67,7 +67,7 @@ export default function Shirts() {
                                                     ><i className='fa-solid fa-cart-shopping text-info'></i></button>
                                                     <button className='btn ' onClick={() => {
                                                         if (localStorage.getItem("Raghu") && localStorage.getItem("currentuser")) {
-                                                            axios.post("http://localhost:8082/fav/", {
+                                                            axios.post("http://localhost:8083/fav/", {
                                                                 "itemId": e.itemId,
                                                                 "itemName": e.itemName,
                                                                 "itemDesc": e.itemDesc,
@@ -114,7 +114,7 @@ export default function Shirts() {
                                                 <div className='card-header justify-content-end text-end'>
                                                     <button className='btn  m-2' onClick={() => {
                                                         if (localStorage.getItem("Raghu") && localStorage.getItem("currentuser")) {
-                                                            axios.post("http://localhost:8081/cart/", {
+                                                            axios.post("http://localhost:8083/cart/", {
                                                                 "itemId": e.itemId,
                                                                 "itemName": e.itemName,
                                                                 "itemDesc": e.itemDesc,
@@ -132,7 +132,7 @@ export default function Shirts() {
                                                     ><i className='fa-solid fa-cart-shopping text-info'></i></button>
                                                     <button className='btn' onClick={() => {
                                                         if (localStorage.getItem("Raghu") && localStorage.getItem("currentuser")) {
-                                                            axios.post("http://localhost:8082/fav/", {
+                                                            axios.post("http://localhost:8083/fav/", {
                                                                 "itemId": e.itemId,
                                                                 "itemName": e.itemName,
                                                                 "itemDesc": e.itemDesc,

@@ -1,4 +1,4 @@
-GitRepositoriesView.GitDirectories=D\:\\Shopping\\Shopping\\spring-jpa-snowflake\\.git;D\:\\Shopping\\Shopping\\.git;
-GitRepositoriesView.GitDirectories.relative=spring-jpa-snowflake\\.git;.git;
+GitRepositoriesView.GitDirectories=D\:\\Shopping\\Shopping\\spring-jpa-snowflake\\.git;D\:\\Shopping\\.git;D\:\\Shopping\\Shopping\\.git;
+GitRepositoriesView.GitDirectories.relative=spring-jpa-snowflake\\.git;D\:\\Shopping\\.git;.git;
 core_autoIgnoreDerivedResources=false
 eclipse.preferences.version=1

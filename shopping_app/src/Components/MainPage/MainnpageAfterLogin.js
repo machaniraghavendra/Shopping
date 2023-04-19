@@ -31,8 +31,8 @@ export default function MainPageAfterlogin(props) {
     }
 
     const currentuser = () => {
-        axios.get("http://localhost:8080/user/id/" + props.user).then(res => { return (setWhat(true)) })
-        axios.get("http://localhost:8080/user/" + props.user).then(a => { return (setUserName(a.data.userName)) })
+        axios.get("http://localhost:8083/user/id/" + props.user).then(res => { return (setWhat(true)) })
+        axios.get("http://localhost:8083/user/" + props.user).then(a => { return (setUserName(a.data.userName)) })
 
     }
 
@@ -105,6 +105,9 @@ export default function MainPageAfterlogin(props) {
                                                 <a className="dropdown-item text-center">
                                                     <button className="btn btn-outline-danger  justify-content-end " data-bs-toggle="modal" data-bs-target="#exampleModal3" data-bs-whatever="@fat"
                                                     ><i className="fa-solid fa-power-off"></i> Sign out
+                                                    </button><br></br>
+                                                    <button className="btn btn-outline-danger  justify-content-end " data-bs-toggle="modal" data-bs-target="#exampleModal2" data-bs-whatever="@fat"
+                                                    ><i className="fa-solid fa-power-off"></i> Sign out & Switch User
                                                     </button>
                                                 </a>
                                             </li>
@@ -212,7 +215,7 @@ export default function MainPageAfterlogin(props) {
                                                 <div className="card " data-aos="fade-up" >
                                                     <div className='card-header justify-content-end text-end'>
                                                         <button className='btn  m-2' onClick={() => {
-                                                            axios.post("http://localhost:8081/cart/", {
+                                                            axios.post("http://localhost:8083/cart/", {
                                                                 "itemId": e.itemId,
                                                                 "itemName": e.itemName,
                                                                 "itemDesc": e.itemDesc,
@@ -228,7 +231,7 @@ export default function MainPageAfterlogin(props) {
 
                                                         ><i className='fa-solid fa-cart-shopping text-info'></i></button>
                                                         <button className='btn ' onClick={() => {
-                                                            axios.post("http://localhost:8082/fav/", {
+                                                            axios.post("http://localhost:8083/fav/", {
                                                                 "itemId": e.itemId,
                                                                 "itemName": e.itemName,
                                                                 "itemDesc": e.itemDesc,
@@ -368,6 +371,7 @@ export default function MainPageAfterlogin(props) {
 
                 <ChatBot />
 
+{/* LogOut pop */}
                 <div className="modal fade " id="exampleModal3" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div className="modal-dialog">
                         <div className="modal-content logout-model">
@@ -384,6 +388,31 @@ export default function MainPageAfterlogin(props) {
                                     onClick={() => {
                                         return (localStorage.removeItem("currentuser"),
                                             localStorage.removeItem("Raghu"),
+                                            window.location.reload())
+                                    }}
+                                >Yes</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {/* Switch user popup */}
+                <div className="modal fade " id="exampleModal2" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div className="modal-dialog">
+                        <div className="modal-content logout-model">
+                            <div className="modal-header">
+                                <h5 className="modal-title " id="exampleModalLabel"><img src={img} alt="" width="30" height="30" className="d-inline-block align-text-top" /> Shopping mart</h5>
+                                <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div className="modal-body text-center">
+                                <h5>Conform to logout and switch user</h5>
+                            </div>
+                            <div className="modal-footer">
+                                <button type="button" className="btn btn-outline-success" data-bs-dismiss="modal">No</button>
+                                <button type="button" className="btn btn-outline-danger"
+                                    onClick={() => {
+                                        return (localStorage.removeItem("currentuser"),
+                                            localStorage.removeItem("Raghu"),
+                                            nav("/login"),
                                             window.location.reload())
                                     }}
                                 >Yes</button>

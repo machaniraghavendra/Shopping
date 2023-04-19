@@ -29,20 +29,20 @@ export default function Login(props) {
     }
 
     const userCheck = () => {
-        axios.get("http://localhost:8080/user/" + user.userEmail).then((res) => { return (setUserName(res.data)) })
+        axios.get("http://localhost:8083/user/" + user.userEmail).then((res) => { return (setUserName(res.data)) })
     }
 
     const check = () => {
         if (isSubmit == true) {
             if (formErrors.userEmail == "" && formErrors.password == "") {
-                axios.get("http://localhost:8080/user/" + user.userEmail + "/" + user.userPassword)
+                axios.get("http://localhost:8083/user/" + user.userEmail + "/" + user.userPassword)
                     .then(res => {
                         if (res.data) {
                             { localStorage.setItem("Raghu", "raghu") ;localStorage.setItem("currentuser", userName.userEmail)};
                             if (localStorage.getItem("Raghu")) {
                                 return (setInfo(""),
                                     setShowToast(true), timeout(),
-                                    axios.get("http://localhost:8080/user/id/"+props.user).then(res=>{return(setWhat(true))}),
+                                    axios.get("http://localhost:8083/user/id/"+props.user).then(res=>{return(setWhat(true))}),
                                     
                                     setTimeout(() => {
                                         return (
@@ -141,7 +141,7 @@ export default function Login(props) {
                                                 <img src={img} alt="Not found" width="35" height="35" className="d-inline-block align-text-top" /> Shopping Mart
                                             </h2>
 
-                                            <form onSubmit={handleSubmit} method="get" action="http://localhost:8080/login">
+                                            <form onSubmit={handleSubmit} method="get" action="http://localhost:8083/login">
 
                                                 <h5 className="fw-normal mb-3 pb-3" style={{ letterSpacing: " 1px" }}>Sign into your account</h5>
 

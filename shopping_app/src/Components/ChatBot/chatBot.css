@@ -19,10 +19,14 @@
     display: block;
     position: fixed;
     left: 5%;
-    top: 38%;
+    top: 39%;
     z-index: 9;
     opacity: 95%;
     transition: 0.4s;
+}
+
+.chatPop .card{
+
 }
 
 .closeBot .bi {

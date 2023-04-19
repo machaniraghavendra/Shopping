@@ -27,7 +27,7 @@ export default function SignUp() {
 
         if (isSubmit == true) {
             if (formErrors.userName == "" && formErrors.userEmail == "" && formErrors.mobileNumber == "" && formErrors.password == "") {
-                axios.post("http://localhost:8080/user/", user)
+                axios.post("http://localhost:8083/user/", user)
                     .then(res => { return (setInfo(res.data), setIsSubmit(false), setShowToast(true), timeout()) })
             }
         }

@@ -25,9 +25,9 @@ export default function ForgotPass(props) {
         if (isSubmit == true) {
             if (formErrors.userEmail == "" && formErrors.userPassword == "") {
                 if (valueCon == values.userPassword) {
-                    axios.get("http://localhost:8080/user/" + values.userEmail).then(res => {
+                    axios.get("http://localhost:8083/user/" + values.userEmail).then(res => {
                         return (
-                            axios.put("http://localhost:8080/user/", {
+                            axios.put("http://localhost:8083/user/", {
                                 "userEmail": values.userEmail,
                                 "userPassword": values.userPassword,
                                 "userName": res.data.userName,
@@ -67,7 +67,7 @@ export default function ForgotPass(props) {
     const set = (e) => {
         const { name, value } = e.target
         setValues({ ...values, [name]: value })
-        axios.get("http://localhost:8080/user/" + values.userEmail).then(res => { return (setuserInfo(res.data)) })
+        axios.get("http://localhost:8083/user/" + values.userEmail).then(res => { return (setuserInfo(res.data)) })
         document.getElementById("loginbtn").classList.remove("d-none");
     }
 

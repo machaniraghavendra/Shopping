@@ -31,7 +31,7 @@ export default function Wishlist(props) {
     var count = 0;
 
     const fetch = () => {
-        axios.get("http://localhost:8082/fav/")
+        axios.get("http://localhost:8083/fav/")
             .then((res) => { return (setData(res.data)) });
     }
 
@@ -66,7 +66,7 @@ export default function Wishlist(props) {
         : document.body.style = "background: radial-gradient( #f5ff37, rgb(160, 255, 97))"
         window.onscroll = () => check();
         document.title = "WishList | Shopping Mart"
-        axios.get("http://localhost:8080/user/"+props.user).then(a=>{return(setUserName(a.data.userName))})
+        axios.get("http://localhost:8083/user/"+props.user).then(a=>{return(setUserName(a.data.userName))})
         return (fetch())
     }, [])
 
@@ -175,13 +175,13 @@ export default function Wishlist(props) {
 
                                                 <div className='card-header justify-content-end text-end'>
                                                     <button className='btn  m-2' onClick={() => {
-                                                        axios.delete("http://localhost:8082/fav/" + e.itemId).then((res) => { return (setInfo(res.data),setShowToast(true),timeout(), fetch()) })
+                                                        axios.delete("http://localhost:8083/fav/" + e.itemId).then((res) => { return (setInfo(res.data),setShowToast(true),timeout(), fetch()) })
                                                     }}
                                                         data-bs-toggle="modal" data-bs-target="#exampleModal2" data-bs-whatever="@mdo"
                                                     ><i className='fa-solid fa-trash text-danger'></i></button>
                                                     <button className='btn ' onClick={() => {
                                                         if (localStorage.getItem("Raghu") && localStorage.getItem("currentuser")) {
-                                                            axios.post("http://localhost:8081/cart/", {
+                                                            axios.post("http://localhost:8083/cart/", {
                                                                 "itemId": e.itemId,
                                                                 "itemName": e.itemName,
                                                                 "itemDesc": e.itemDesc,
@@ -223,7 +223,7 @@ export default function Wishlist(props) {
                                                 <li >
                                                     {e.itemName} = {e.itemPrice} -&gt;
                                                     <button className='btn btn-outline-danger m-2' onClick={() => {
-                                                        axios.delete("http://localhost:8082/fav/" + e.itemId).then((res) => { return (setInfo(res.data),setShowToast(true),timeout(), fetch()) })
+                                                        axios.delete("http://localhost:8083/fav/" + e.itemId).then((res) => { return (setInfo(res.data),setShowToast(true),timeout(), fetch()) })
                                                     }}
                                                         data-bs-toggle="modal" data-bs-target="#exampleModal2" data-bs-whatever="@mdo">
                                                         <i className='fa-solid fa-trash '></i></button>
@@ -316,12 +316,12 @@ export default function Wishlist(props) {
                                             <div className="card " data-aos="fade-up" >
                                                 <div className='card-header justify-content-end text-end'>
                                                     <button className='btn  m-2' onClick={() => {
-                                                        axios.delete("http://localhost:8082/fav/" + e.itemId).then((res) => { return (setInfo(res.data), fetch(), setFindvalue(count)) })
+                                                        axios.delete("http://localhost:8083/fav/" + e.itemId).then((res) => { return (setInfo(res.data), fetch(), setFindvalue(count)) })
                                                     }}><i className='fa-solid fa-trash text-danger'></i>
                                                     </button>
                                                     <button className='btn ' onClick={() => {
                                                         if (localStorage.getItem("Raghu") && localStorage.getItem("currentuser")) {
-                                                            axios.post("http://localhost:8081/cart/", {
+                                                            axios.post("http://localhost:8083/cart/", {
                                                                 "itemId": e.itemId,
                                                                 "itemName": e.itemName,
                                                                 "itemDesc": e.itemDesc,

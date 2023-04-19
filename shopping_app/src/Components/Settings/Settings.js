@@ -45,7 +45,7 @@ export default function Settings(props) {
     }
 
     const currentuser = () => {
-        axios.get("http://localhost:8080/user/" + props.user).then(res => {
+        axios.get("http://localhost:8083/user/" + props.user).then(res => {
             return (setUser(res.data))
         })
     }
@@ -237,7 +237,7 @@ export default function Settings(props) {
                                                 <div id="name" className="form-floating my-3" >
                                                     <span id='updatename' onClick={() => {
                                                         if (isSubmit && formErrors.userName == "") {
-                                                            axios.put("http://localhost:8080/user/", {
+                                                            axios.put("http://localhost:8083/user/", {
                                                                 "userName": values.userName,
                                                                 "userEmail": user.userEmail,
                                                                 "userId": user.userId,
@@ -263,7 +263,7 @@ export default function Settings(props) {
                                                 <div id="number" className="form-floating my-3 " >
                                                     <span id='updatenumber' onClick={() => {
                                                         if (isSubmit == true && formErrors.mobileNumber == "") {
-                                                            axios.put("http://localhost:8080/user/", {
+                                                            axios.put("http://localhost:8083/user/", {
                                                                 "userName": user.userName,
                                                                 "userEmail": user.userEmail,
                                                                 "userId": user.userId,
