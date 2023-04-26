@@ -23,39 +23,39 @@ import com.shopping.query.command.service.implementation.UserServiceImpl;
 @RestController
 @RequestMapping("/user")
 @CrossOrigin(origins = "*")
-public class UserController{
+public class UserController {
 
 	@Autowired
 	UserServiceImpl userServiceImpl;
-	
+
 	@PostMapping("/")
-	public ResponseEntity<String> save(@RequestBody UserEntity userEntity) throws UserAlreadyExistsException{
-		return new ResponseEntity<String>(userServiceImpl.save(userEntity),HttpStatus.OK);
+	public ResponseEntity<String> save(@RequestBody UserEntity userEntity) throws UserAlreadyExistsException {
+		return new ResponseEntity<String>(userServiceImpl.save(userEntity), HttpStatus.OK);
 	}
-	
+
 	@PutMapping("/")
-	public ResponseEntity<String> update(@RequestBody UserEntity userEntity) throws UserNotFoundException{
-		return new ResponseEntity<String>(userServiceImpl.update(userEntity),HttpStatus.OK);
+	public ResponseEntity<String> update(@RequestBody UserEntity userEntity) throws UserNotFoundException {
+		return new ResponseEntity<String>(userServiceImpl.update(userEntity), HttpStatus.OK);
 	}
-	
+
 	@DeleteMapping("/{id}")
-	public ResponseEntity<String> delete(@PathVariable("id") String userEmail) throws UserNotFoundException{
-		return new ResponseEntity<String>(userServiceImpl.delete(userEmail),HttpStatus.ACCEPTED);
+	public ResponseEntity<String> delete(@PathVariable("id") String userEmail) throws UserNotFoundException {
+		return new ResponseEntity<String>(userServiceImpl.delete(userEmail), HttpStatus.ACCEPTED);
 	}
-	
+
 	@GetMapping("/{id}")
-	public ResponseEntity<UserEntity> find(@PathVariable("id") String userEmail) throws UserNotFoundException{ 
-		return new ResponseEntity<UserEntity>(userServiceImpl.find(userEmail),HttpStatus.OK);
+	public ResponseEntity<UserEntity> find(@PathVariable("id") String userEmail) throws UserNotFoundException {
+		return new ResponseEntity<UserEntity>(userServiceImpl.find(userEmail), HttpStatus.OK);
 	}
-	
+
 	@GetMapping("/")
-	public ResponseEntity<List<UserEntity>> findall(){
-		return new ResponseEntity<List<UserEntity>>(userServiceImpl.findall(),HttpStatus.OK);
+	public ResponseEntity<List<UserEntity>> findall() {
+		return new ResponseEntity<List<UserEntity>>(userServiceImpl.findall(), HttpStatus.OK);
 	}
-	
+
 	@GetMapping("/{useremail}/{password}")
-	public boolean check(@PathVariable("useremail") String userEmail ,@PathVariable("password") String userPassword){
+	public boolean check(@PathVariable("useremail") String userEmail, @PathVariable("password") String userPassword) {
 		return userServiceImpl.check(userEmail, userPassword);
 	}
-	
- }
+
+}

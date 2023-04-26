@@ -21,6 +21,7 @@
 	<section name="MavenModuleWizardParentPage">
 		<list key="moduleName">
 			<item value="Shopping_Items"/>
+			<item value="S"/>
 		</list>
 		<list key="projectNameTemplate">
 			<item value="[artifactId]"/>
@@ -32,6 +33,7 @@
 		</list>
 	</section>
 	<section name="MavenProjectWizardArchetypePage">
+		<item key="catalog" value="All Catalogs"/>
 		<list key="projectNameTemplate">
 			<item value="[artifactId]"/>
 			<item value="[artifactId]-TRUNK"/>
